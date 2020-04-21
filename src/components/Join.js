@@ -2,25 +2,13 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import theme from '../constants/theme'
 
-import StyledInput from './StyledComponents'
+import { Button, StyledInput } from './StyledComponents'
 
 const FormContainer = styled.div`
   padding: 20px;
   display: flex;
   flex-direction: column;
   text-align: center;
-`
-
-const Button = styled.button`
-  padding: 15px;
-  margin: 5px;
-  min-width: 220px;
-  font-size: 25px;
-  background-color: ${theme.buttonBlue};
-  color: white;
-  border: none;
-  font-family: ${theme.font};
-  cursor: pointer;
 `
 
 const FormItem = styled.p`

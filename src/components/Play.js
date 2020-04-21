@@ -5,7 +5,7 @@ import styled from 'styled-components'
 import GameHeader from './GameHeader'
 import theme from '../constants/theme'
 
-import StyledInput from './StyledComponents'
+import { Button, StyledInput } from './StyledComponents'
 
 let socket;
 
@@ -14,7 +14,6 @@ const GameContainer = styled.div`
   padding: 20px;
 `
 
-
 const GameScreen = styled.div`
   font-family: ${theme.font};
   padding: 20px;
@@ -22,15 +21,14 @@ const GameScreen = styled.div`
 
 const TableContainer = styled.div`
   display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
 `
-
-const alphabets = ['A', 'B', 'C', 'D', "E", 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P']
 
 const Play = ({ gameData }) => {
   const [name, setName] = useState('');
   const [users, setUsers] = useState([])
   const [code, setCode] = useState('');
-  const [currentAlphabet, setAlphabet] = useState('');
   const [message, setMessage] = useState('');
   const [messages, setMessages] = useState([])
   const ENDPOINT = 'http://localhost:5000/'
@@ -75,6 +73,9 @@ const Play = ({ gameData }) => {
     }
   }
 
+  // Sumbit users respnse
+  const sendResponse = (event) => { }
+
   console.log({ messages })
   return <GameContainer>
     <GameHeader roundNumber={1} />
@@ -83,6 +84,7 @@ const Play = ({ gameData }) => {
     </div>
     <GameScreen>
       <GameTable />
+      <Button onClick={(event) => { sendResponse(event) }}>Submit Response</Button>
       {/* <div>
         <StyledInput
           value={message}
@@ -98,6 +100,18 @@ const GameTable = ({ }) => {
   return <TableContainer>
     <p>
       <label htmlFor="name">Name:</label>
+      <StyledInput maxLength="15" name="name" type="text" onChange={(event) => { }} />
+    </p>
+    <p>
+      <label htmlFor="name">Place:</label>
+      <StyledInput maxLength="15" name="name" type="text" onChange={(event) => { }} />
+    </p>
+    <p>
+      <label htmlFor="name">Animal:</label>
+      <StyledInput maxLength="15" name="name" type="text" onChange={(event) => { }} />
+    </p>
+    <p>
+      <label htmlFor="name">Thing:</label>
       <StyledInput maxLength="15" name="name" type="text" onChange={(event) => { }} />
     </p>
   </TableContainer>

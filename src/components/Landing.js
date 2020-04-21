@@ -6,6 +6,7 @@ import Join from './Join';
 import Create from './Create';
 import Play from './Play';
 
+
 const Container = styled.div`
   width: 100vw;
   height: 100vh;
@@ -85,12 +86,12 @@ const Landing = () => {
                 toggleJoinForm(true)
                 toggleCreateForm(false)
               }}
-                type="submit">Join Existing Game</Button>
+              >Join Existing Game</Button>
               <Button onClick={(event) => {
                 event.preventDefault()
                 toggleJoinForm(false)
                 toggleCreateForm(true)
-              }} type="submit">Create New Game</Button>
+              }}>Create New Game</Button>
             </ButtonContainer>
           </IntroContainer>}
         {showJoinForm && <Join cancel={toggleJoinForm} setGamePlaying={setGamePlaying} setGameData={setGameData} />}
