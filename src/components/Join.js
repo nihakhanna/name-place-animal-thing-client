@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import theme from '../constants/theme'
+
 
 import { Button, StyledInput } from './StyledComponents'
+import { socket } from '../constants/websocket'
 
 const FormContainer = styled.div`
   padding: 20px;
@@ -22,6 +23,19 @@ const Join = ({ cancel, setGameData, setGamePlaying }) => {
     name, code, isAdmin: false
   }
 
+  const handleJoinGame = (event) => {
+    event.preventDefault();
+    socket.emit('join', { name, code }, ({ error, users }) => {
+      if (error) {
+        alert(error);
+      } else {
+        gameData.users = users;
+        setGameData(gameData)
+        setGamePlaying(true)
+      }
+    });
+  }
+
   return (
     <FormContainer>
       <form>
@@ -30,14 +44,11 @@ const Join = ({ cancel, setGameData, setGamePlaying }) => {
           <StyledInput maxLength="15" name="name" type="text" onChange={(event) => setName(event.target.value)} />
         </FormItem>
         <FormItem>
-          <label for="name">Room Code:</label>
-          <StyledInput maxLength="20" type="text" onChange={(event) => setCode(event.target.value)} />
+          <label htmlFor="code">Room Code:</label>
+          <StyledInput name="code" maxLength="20" type="text" onChange={(event) => setCode(event.target.value)} />
         </FormItem>
-        <Button onClick={() => {
-          setGameData(gameData)
-          setGamePlaying(true)
-        }} type="submit">Join Your Friends!</Button>
-        <Button onClick={() => cancel()} type="submit">Cancel</Button>
+        <Button fontSize="25px" padding="15px" minWidth="220px" onClick={(event) => handleJoinGame(event)}>Join Your Friends!</Button>
+        <Button fontSize="25px" padding="15px" minWidth="220px" onClick={() => cancel()} type="submit">Cancel</Button>
       </form>
     </FormContainer>
   )

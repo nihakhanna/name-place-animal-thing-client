@@ -4,7 +4,9 @@ import theme from '../constants/theme'
 
 import Join from './Join';
 import Create from './Create';
-import Play from './Play';
+import Play from './Game/Play';
+
+import { Button } from './StyledComponents'
 
 
 const Container = styled.div`
@@ -21,10 +23,13 @@ const IntroContainer = styled.div`
 
 const Header = styled.div`
  padding: 20px;
+ height: 100px;
  font-size: 50px;
  text-align: center;
+ margin-top: 50px;
  @media (max-width: 768px) {
   font-size: 30px;
+  height: 80px;
 }
 `
 
@@ -44,18 +49,6 @@ justify-content: center;
 flex-direction: column;
 `
 
-const Button = styled.button`
-  padding: 15px;
-  margin: 5px;
-  min-width: 220px;
-  font-size: 25px;
-  background-color: ${theme.buttonBlue};
-  color: white;
-  border: none;
-  font-family: ${theme.font};
-  cursor: pointer;
-`
-
 const Footer = styled.div`
   height: 50px;
 `
@@ -72,31 +65,33 @@ const Landing = () => {
   return (
     <Container>
       <Header>
-        <p>Name, Place, Animal, Thing</p>
+        Name, Place, Animal, Thing
       </Header>
-      {isGamePlaying ? <Play gameData={gameData} /> : showInstructions ? <Instructions /> : <>
-        {!(showJoinForm || showCreateForm) &&
-          <IntroContainer>
-            <TopButtonContainer>
-              <Button onClick={() => toggleInstructions(true)}>How To Play</Button>
-            </TopButtonContainer>
-            <ButtonContainer>
-              <Button onClick={(event) => {
-                event.preventDefault()
-                toggleJoinForm(true)
-                toggleCreateForm(false)
-              }}
-              >Join Existing Game</Button>
-              <Button onClick={(event) => {
-                event.preventDefault()
-                toggleJoinForm(false)
-                toggleCreateForm(true)
-              }}>Create New Game</Button>
-            </ButtonContainer>
-          </IntroContainer>}
-        {showJoinForm && <Join cancel={toggleJoinForm} setGamePlaying={setGamePlaying} setGameData={setGameData} />}
-        {showCreateForm && <Create setGamePlaying={setGamePlaying} setGameData={setGameData} cancel={toggleCreateForm} />}
-      </>}
+      {isGamePlaying ?
+        <Play
+          setGamePlaying={setGamePlaying} gameData={gameData} /> : showInstructions ? <Instructions /> : <>
+            {!(showJoinForm || showCreateForm) &&
+              <IntroContainer>
+                <TopButtonContainer>
+                  <Button fontSize="25px" padding="15px" minWidth="220px" onClick={() => toggleInstructions(true)}>How To Play</Button>
+                </TopButtonContainer>
+                <ButtonContainer>
+                  <Button fontSize="25px" padding="15px" minWidth="220px" onClick={(event) => {
+                    event.preventDefault()
+                    toggleJoinForm(true)
+                    toggleCreateForm(false)
+                  }}
+                  >Join Existing Game</Button>
+                  <Button fontSize="25px" padding="15px" minWidth="220px" onClick={(event) => {
+                    event.preventDefault()
+                    toggleJoinForm(false)
+                    toggleCreateForm(true)
+                  }}>Create New Game</Button>
+                </ButtonContainer>
+              </IntroContainer>}
+            {showJoinForm && <Join cancel={toggleJoinForm} setGamePlaying={setGamePlaying} setGameData={setGameData} />}
+            {showCreateForm && <Create setGamePlaying={setGamePlaying} setGameData={setGameData} cancel={toggleCreateForm} />}
+          </>}
       <Footer></Footer>
     </Container>
 
