@@ -43,13 +43,14 @@ const Submission = styled.span`
 
 const ResultsTable = ({ gameState, round, handleSubmitScore, scoreSubmitted }) => {
   const [currentScore, setCurrentScore] = useState(0);
+  console.log({ gameState })
+  const categories = gameState.categories;
   return <><TableContainer>
     {gameState.users.map(user => <Paper key={user.id}>
       <h2 style={{ textAlign: 'center' }}>{user.name}</h2>
-      <p>Name: <Submission>{user.responses[round].name || 'N/A'}</Submission></p>
-      <p>Place: <Submission>{user.responses[round].place || 'N/A'}</Submission></p>
-      <p>Animal: <Submission>{user.responses[round].animal || 'N/A'}</Submission></p>
-      <p>Thing: <Submission>{user.responses[round].thing || 'N/A'}</Submission></p>
+      {categories.map(category => <p key={category}>
+        {category}: <Submission>{user.responses[round][category] || 'N/A'}</Submission>
+      </p>)}
     </Paper>)}
   </TableContainer>
     <Container>

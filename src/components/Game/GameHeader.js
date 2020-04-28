@@ -44,10 +44,10 @@ const BoldContent = styled.span`
   font-size: 1.2em;
 `
 
-const GameHeader = ({ roundNumber, timerValue, currentAlphabet }) => {
+const GameHeader = ({ roundNumber, timerValue, currentAlphabet, maxRounds }) => {
   return <Container>
     <RoundContainer>
-      <span>Round <BoldContent>{`#${roundNumber}`}</BoldContent></span>
+      <span>Round <BoldContent>{`#${roundNumber}/${maxRounds}`}</BoldContent></span>
       <span>Current Alphabet: <BoldContent>{currentAlphabet || 'Not Selected'}</BoldContent></span>
     </RoundContainer>
     <TimerContainer><TimerValue>{timerValue}</TimerValue></TimerContainer>

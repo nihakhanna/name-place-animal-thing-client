@@ -26,19 +26,38 @@ const CheckBoxContainer = styled.div`
 const Create = ({ cancel, setGameData, setGamePlaying }) => {
   const [name, setName] = useState('');
   const [code, setCode] = useState('');
-  const [rounds, setRounds] = useState(5);
+  const [rounds, setRounds] = useState("1");
+  const [categories, setCategories] = useState({
+    Songs: false,
+    Movies: false,
+    "TV shows": false,
+    Fruits: false,
+    Vegetables: false,
+    Books: false,
+    Subjects: false
+  })
 
+  const options = ["1", "5", "7"]
   const gameData = {
     name, code, isAdmin: true
   }
 
   const handleCreateGame = (event) => {
     event.preventDefault()
-    socket.emit('create', { name, code, rounds }, ({ error, users }) => {
+    let cats = [];
+    Object.keys(categories).forEach(cat => {
+      if (categories[cat]) cats.push(cat);
+    });
+
+    // Don't hardcode, but always default to name, place, animal, thing
+    cats = ['Name', 'Place', 'Animal', 'Thing', ...cats];
+    socket.emit('create', { name, code, rounds, categories: cats }, ({ error, users }) => {
       if (error) {
         alert(error);
       } else {
-        gameData.users = users
+        gameData.users = users;
+        gameData.maxRounds = Number(rounds);
+        gameData.categories = cats;
         setGameData(gameData)
         setGamePlaying(true)
       }
@@ -50,25 +69,24 @@ const Create = ({ cancel, setGameData, setGamePlaying }) => {
       <form>
         {!code ? <FlexColumn>
           <p>
-            <label htmlFor="name">User Name:</label>
+            <label htmlFor="name">Name:</label>
             <StyledInput maxLength="15" name="name" type="text" onChange={(event) => setName(event.target.value)} />
           </p>
           <h2>Select number of rounds:</h2>
           <FlexContainer>
-            <CheckBoxContainer>
-              <input type="radio" id="5" name="rounds" value={5} onChange={(event) => setRounds(event.target.value)} checked={rounds == 5} />
-              <label htmlFor="5">5</label>
-            </CheckBoxContainer>
-            <CheckBoxContainer>
-              <input type="radio" id="5" name="rounds" value={7} onChange={(event) => setRounds(event.target.value)} checked={rounds == 7} />
-              <label htmlFor="dewey">7</label>
-            </CheckBoxContainer>
-            <CheckBoxContainer>
-              <input type="radio" id="5" name="rounds" value={10} onChange={(event) => setRounds(event.target.value)} checked={rounds == 10} />
-              <label htmlFor="louie">10</label>
-            </CheckBoxContainer>
+            {options.map(option => <CheckBoxContainer key={option}>
+              <input type="radio" id={option} name="rounds" value={option} onChange={(event) => setRounds(event.target.value)} checked={rounds === option} />
+              <label htmlFor={option}>{option}</label>
+            </CheckBoxContainer>)}
           </FlexContainer>
-          <Button fontSize="25px" padding="15px" minWidth="220px" onClick={(event) => {
+          <h2>Select additional categories:</h2>
+          <FlexContainer>
+            {Object.keys(categories).map(cat => <CheckBoxContainer key={cat}>
+              <input type="checkbox" id={cat} name="categories" value={categories[cat]} onChange={(event) => setCategories(Object.assign({}, categories, { [cat]: Boolean(event.target.value) }))} checked={categories[cat]} />
+              <label htmlFor={cat}>{cat}</label>
+            </CheckBoxContainer>)}
+          </FlexContainer>
+          <Button disabled={!name} fontSize="25px" padding="15px" minWidth="220px" onClick={(event) => {
             event.preventDefault()
             setCode(hri.random())
           }}>Generate Game Code</Button>

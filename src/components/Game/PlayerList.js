@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import styled, { keyframes } from 'styled-components';
 import theme, { avatars } from '../../constants/theme'
 import { FlexContainer } from '../StyledComponents'
@@ -35,7 +35,7 @@ const ActivePlayers = ({ users, gameStarted }) => {
     {!gameStarted && <h1>Who's Playing?</h1>}
     <FlexContainer>{
       users.map((user, i) => <UserContainer gameStarted={gameStarted} key={user.id}>
-        <img width={width} height={height} src={avatars[user.avatarIndex || i]} />
+        <img alt={`${user.name} avatar`} width={width} height={height} src={avatars[user.avatarIndex || i]} />
         {gameStarted && <h4>{user.name}</h4>}
         {!gameStarted && <h2>{user.name}</h2>}
       </UserContainer>)

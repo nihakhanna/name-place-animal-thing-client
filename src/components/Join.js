@@ -25,11 +25,13 @@ const Join = ({ cancel, setGameData, setGamePlaying }) => {
 
   const handleJoinGame = (event) => {
     event.preventDefault();
-    socket.emit('join', { name, code }, ({ error, users }) => {
+    socket.emit('join', { name, code }, ({ error, users, maxRounds, categories }) => {
       if (error) {
         alert(error);
       } else {
+        gameData.maxRounds = maxRounds;
         gameData.users = users;
+        gameData.categories = categories;
         setGameData(gameData)
         setGamePlaying(true)
       }

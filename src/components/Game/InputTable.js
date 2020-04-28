@@ -22,11 +22,10 @@ const Paper = styled.div`
   height: auto;
   padding: 30px 30px 30px 110px;
   margin: 0 auto;
-  margin-top: 30px;
-  box-shadow: 4px 16px 8px rgba(#566270, .1);
-  transform: rotate(-4deg);
+  margin-top: 50px;
+  box-shadow: #9e9e9e70 11px 8px 12px;
   @media (max-width: 768px) {
-    transform: rotate(0deg);
+    box-shadow: gray 0px 0px;
     width: 180px;
     padding: 30px 30px 30px 80px;
     background-image:
@@ -36,37 +35,23 @@ const Paper = styled.div`
   text-align: center;
 `
 
-const InputTable = ({ sendResponse, timerValue }) => {
-  // Current game state 
-  const [currentName, setCurrentName] = useState('');
-  const [currentAnimal, setCurrentAnimal] = useState('');
-  const [currentPlace, setCurrentPlace] = useState('');
-  const [currentThing, setCurrentThing] = useState('');
+const InputTable = ({ sendResponse, timerValue, categories }) => {
+  const [response, setResponse] = useState({});
 
   if (timerValue === 60) {
-    sendResponse({ currentName, currentPlace, currentAnimal, currentThing })
+    sendResponse(response)
   }
   return <Paper><TableContainer>
-    <span>
-      <label style={{ display: 'none' }} htmlFor="name">Name:</label>
-      <StyledInput placeholder="Name" maxLength="15" name="name" type="text" onChange={(event) => { setCurrentName(event.target.value) }} />
-    </span>
-    <span>
-      <label style={{ display: 'none' }} htmlFor="place">Place:</label>
-      <StyledInput placeholder="Place" maxLength="15" name="place" type="text" onChange={(event) => { setCurrentPlace(event.target.value) }} />
-    </span>
-    <span>
-      <label style={{ display: 'none' }} htmlFor="animal">Animal:</label>
-      <StyledInput placeholder="Animal" maxLength="15" name="animal" type="text" onChange={(event) => { setCurrentAnimal(event.target.value) }} />
-    </span>
-    <span>
-      <label style={{ display: 'none' }} htmlFor="thing">Thing:</label>
-      <StyledInput placeholder="Thing" maxLength="15" name="thing" type="text" onChange={(event) => { setCurrentThing(event.target.value) }} />
-    </span>
+    {categories.map(cat => <span>
+      <label style={{ display: 'none' }} htmlFor={cat}>{`${cat}:`}</label>
+      <StyledInput placeholder={cat} maxLength="15" name={cat} type="text" onChange={(event) => {
+        setResponse(Object.assign({}, response, { [cat]: event.target.value }))
+      }} />
+    </span>)}
   </TableContainer>
     <Button onClick={(event) => {
       event.preventDefault()
-      sendResponse({ currentName, currentPlace, currentAnimal, currentThing })
+      sendResponse(response)
     }}>Submit Response</Button></Paper>
 }
 

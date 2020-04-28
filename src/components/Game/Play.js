@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components'
 
-import theme from '../../constants/theme'
+import theme, { avatars } from '../../constants/theme'
 import { socket } from '../../constants/websocket'
 import { Button, FlexContainer, Spinner, FlexColumn } from '../StyledComponents'
 
@@ -35,7 +35,6 @@ const ExitButton = styled.button`
 `
 
 const Play = ({ gameData, setGamePlaying }) => {
-  const [name, setName] = useState('');
   const [users, setUsers] = useState([]);
   const [code, setCode] = useState('');
   const [currentGameRound, setCurrentGameRound] = useState(1);
@@ -50,14 +49,17 @@ const Play = ({ gameData, setGamePlaying }) => {
   const [loading, setLoading] = useState(false);
   const [gameEnded, setGameEnded] = useState(false);
   const [finalScores, setFinalScores] = useState([]);
+  const [maxRounds, setMaxRounds] = useState(0);
+  const [categories, setCategories] = useState([])
 
   const isAdmin = gameData.isAdmin;
 
   useEffect(() => {
-    const { name, code, users } = gameData;
+    const { code, users, maxRounds, categories } = gameData;
     setUsers(users)
     setCode(code);
-    setName(name);
+    setMaxRounds(maxRounds)
+    setCategories(categories)
   }, [gameData]);
 
   useEffect(() => {
@@ -117,13 +119,8 @@ const Play = ({ gameData, setGamePlaying }) => {
   }, []);
 
   // Sumbit users respnse
-  const sendResponse = ({ currentName, currentPlace, currentAnimal, currentThing }) => {
-    const response = {
-      name: currentName,
-      place: currentPlace,
-      animal: currentAnimal,
-      thing: currentThing
-    }
+  const sendResponse = (response) => {
+    // forEach category, make a response object
     socket.emit('sendResponse', { code, response, round: currentGameRound }, () => {
       setResponseSubmitted(true)
       socket.emit('stopTimer', { code })
@@ -131,7 +128,9 @@ const Play = ({ gameData, setGamePlaying }) => {
   }
 
   const handleSubmitScore = (score) => {
-    socket.emit('sendScore', { code, score, round: currentGameRound }, ({ error, gameState }) => {
+    let submitScore;
+    submitScore = score ? score : 0;
+    socket.emit('sendScore', { code, score: submitScore, round: currentGameRound }, ({ error, gameState }) => {
       if (error) alert(error)
       else if (gameState) {
         setScoreSubmitted(true)
@@ -169,8 +168,8 @@ const Play = ({ gameData, setGamePlaying }) => {
       return <ResultsTable scoreSubmitted={scoreSubmitted} handleSubmitScore={handleSubmitScore} round={currentGameRound} gameState={gameState} />
     else
       return <>
-        {(gameStarted) ? <GameHeader timerValue={timerValue} roundNumber={currentGameRound} currentAlphabet={currentAlphabet} /> : false}
-        <InputTable timerValue={timerValue} sendResponse={sendResponse} />
+        {(gameStarted) ? <GameHeader maxRounds={maxRounds} timerValue={timerValue} roundNumber={currentGameRound} currentAlphabet={currentAlphabet} /> : false}
+        <InputTable categories={categories} timerValue={timerValue} sendResponse={sendResponse} />
       </>
   }
 
@@ -205,12 +204,21 @@ const FinalScreen = ({ scores }) => {
       name: score.name
     }
   })
-  return <>
+
+
+  return <FlexColumn>
     <h2>Final Scores</h2>
-    {scores.map(score => <p>{score.name}: {score.score}</p>)}
-    <p>The winner Is:</p>
-    {winner.name}
-  </>
+    <FlexContainer>
+      {scores.map(user => {
+        return <div key={user.name}>
+          <img alt={`${user.name} avatar`} src={avatars[user.avatarId]} width={60} height={60} />
+          <p>{user.name}: {user.score}</p>
+        </div>
+      })
+      }
+    </FlexContainer>
+    <h2>{`🎉🎉 The winner is: ${winner.name || 'No winner!'} 🎉🎉`}</h2>
+  </FlexColumn>
 }
 
 export default Play;

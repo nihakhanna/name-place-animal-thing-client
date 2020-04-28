@@ -19,11 +19,11 @@ const Button = styled.button`
   margin: 5px;
   min-width: ${props => props.minWidth || '150px'};
   font-size: ${props => props.fontSize || '15px'};
-  background-color: ${theme.colors.blue};
   color: white;
   border: none;
+  background-color: ${props => props.disabled ? 'grey' : theme.colors.blue};
   font-family: ${theme.font};
-  cursor: pointer;
+  cursor: ${props => props.disabled ? 'not-allowed' : 'pointer'};
 `
 
 const FlexContainer = styled.div`
@@ -55,7 +55,7 @@ const SpinContainer = styled.div`
 `
 
 const Spinner = () => {
-  return <SpinContainer><img src={spinner} /></SpinContainer>
+  return <SpinContainer><img alt="loading spinner" src={spinner} /></SpinContainer>
 }
 
 export {
