@@ -163,7 +163,7 @@ const Play = ({ gameData, setGamePlaying }) => {
     else if (allScoresCollected)
       return <ScoreTable handleStartNextRound={handleStartNextRound} round={currentGameRound} gameState={gameState} />
     else if (responseSubmitted && !allResponsesCollected)
-      return <div>Waiting for other users to submit responses</div>
+      return <FlexContainer><Spinner /></FlexContainer>
     else if (allResponsesCollected)
       return <ResultsTable scoreSubmitted={scoreSubmitted} handleSubmitScore={handleSubmitScore} round={currentGameRound} gameState={gameState} />
     else
@@ -175,8 +175,9 @@ const Play = ({ gameData, setGamePlaying }) => {
 
   return <Container>
     <ExitButtonContainer><ExitButton onClick={() => {
-      setGamePlaying(false)
-      socket.disconnect()
+      socket.emit('removeUserFromGame', { code }, () => {
+        setGamePlaying(false)
+      })
     }}>X</ExitButton></ExitButtonContainer>
     {!gameEnded && <ActivePlayers gameStarted={gameStarted || gameEnded} users={users} />}
     {renderGameState()}
@@ -210,15 +211,15 @@ const FinalScreen = ({ scores }) => {
     <h2>Final Scores</h2>
     <FlexContainer>
       {scores.map(user => {
-        return <div key={user.name}>
+        return <div style={{ margin: "0 20px", textAlign: "center" }} key={user.name}>
           <img alt={`${user.name} avatar`} src={avatars[user.avatarId]} width={60} height={60} />
           <p>{user.name}: {user.score}</p>
         </div>
       })
       }
     </FlexContainer>
-    <h2>{`🎉🎉 The winner is: ${winner.name || 'No winner!'} 🎉🎉`}</h2>
-  </FlexColumn>
+    <h2 style={{ textAlign: "center" }}>{`🎉🎉 The winner is: ${winner.name || 'No winner!'} 🎉🎉`}</h2>
+  </FlexColumn >
 }
 
 export default Play;

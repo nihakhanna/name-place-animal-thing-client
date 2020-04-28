@@ -44,7 +44,7 @@ const InputTable = ({ sendResponse, timerValue, categories }) => {
   return <Paper><TableContainer>
     {categories.map(cat => <span key={cat}>
       <label style={{ display: 'none' }} htmlFor={cat}>{`${cat}:`}</label>
-      <StyledInput placeholder={cat} maxLength="15" name={cat} type="text" onChange={(event) => {
+      <StyledInput placeholder={cat} maxLength="30" name={cat} type="text" onChange={(event) => {
         setResponse(Object.assign({}, response, { [cat]: event.target.value }))
       }} />
     </span>)}
