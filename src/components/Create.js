@@ -26,7 +26,7 @@ const CheckBoxContainer = styled.div`
 const Create = ({ cancel, setGameData, setGamePlaying }) => {
   const [name, setName] = useState('');
   const [code, setCode] = useState('');
-  const [rounds, setRounds] = useState("1");
+  const [rounds, setRounds] = useState("5");
   const [categories, setCategories] = useState({
     Songs: false,
     Movies: false,
@@ -37,7 +37,7 @@ const Create = ({ cancel, setGameData, setGamePlaying }) => {
     Subjects: false
   })
 
-  const options = ["1", "5", "7"]
+  const options = ["5", "7", "10"]
   const gameData = {
     name, code, isAdmin: true
   }
@@ -82,7 +82,9 @@ const Create = ({ cancel, setGameData, setGamePlaying }) => {
           <h2>Select additional categories:</h2>
           <FlexContainer>
             {Object.keys(categories).map(cat => <CheckBoxContainer key={cat}>
-              <input type="checkbox" id={cat} name="categories" value={categories[cat]} onChange={(event) => setCategories(Object.assign({}, categories, { [cat]: Boolean(event.target.value) }))} checked={categories[cat]} />
+              <input type="checkbox" id={cat} name="categories" onChange={(event) => {
+                setCategories(Object.assign({}, categories, { [cat]: event.target.checked }))
+              }} checked={categories[cat]} />
               <label htmlFor={cat}>{cat}</label>
             </CheckBoxContainer>)}
           </FlexContainer>
