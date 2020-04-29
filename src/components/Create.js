@@ -37,7 +37,7 @@ const Create = ({ cancel, setGameData, setGamePlaying }) => {
     Subjects: false
   })
 
-  const options = ["1", "7", "10"]
+  const options = ["5", "7", "10"]
   const gameData = {
     name, code, isAdmin: true
   }
