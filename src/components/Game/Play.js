@@ -3,7 +3,7 @@ import styled from 'styled-components'
 
 import theme, { avatars } from '../../constants/theme'
 import { socket } from '../../constants/websocket'
-import { Button, FlexContainer, Spinner, FlexColumn } from '../StyledComponents'
+import { Button, FlexContainer, Spinner, FlexColumn, ExitButton, ExitButtonContainer } from '../StyledComponents'
 
 import InputTable from './InputTable'
 import ResultsTable from './ResultsTable'
@@ -13,25 +13,6 @@ import GameHeader from './GameHeader'
 
 const Container = styled.div`
   font-family: ${theme.font};
-`
-
-const ExitButtonContainer = styled.div`
-  position: absolute;
-  top: 0;
-  right: 0;
-  margin: 20px;
-`
-
-const ExitButton = styled.button`
-  font-size: 15px;
-  color: ${theme.colors.red};
-  padding: 5px;
-  cursor: pointer;
-  width: 30px;
-  border: 1px solid ${theme.colors.red};
-  box-shadow: ${theme.colors.red} 2px 2px 0px 0px;
-  border-radius: 15px;
-  font-family: 'Schoolbell', cursive;;
 `
 
 const Play = ({ gameData, setGamePlaying }) => {

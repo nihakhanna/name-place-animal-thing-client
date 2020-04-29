@@ -54,6 +54,26 @@ const SpinContainer = styled.div`
   animation: ${spin} 1.4s linear infinite;
 `
 
+
+const ExitButtonContainer = styled.div`
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 20px;
+`
+
+const ExitButton = styled.button`
+  font-size: 15px;
+  color: ${theme.colors.red};
+  padding: 5px;
+  cursor: pointer;
+  width: 30px;
+  border: 1px solid ${theme.colors.red};
+  box-shadow: ${theme.colors.red} 2px 2px 0px 0px;
+  border-radius: 15px;
+  font-family: 'Schoolbell', cursive;;
+`
+
 const Spinner = () => {
   return <SpinContainer><img alt="loading spinner" src={spinner} /></SpinContainer>
 }
@@ -63,5 +83,7 @@ export {
   Button,
   FlexContainer,
   Spinner,
-  FlexColumn
+  FlexColumn,
+  ExitButtonContainer,
+  ExitButton
 }
