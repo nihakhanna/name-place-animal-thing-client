@@ -43,7 +43,6 @@ const Submission = styled.span`
 
 const ResultsTable = ({ gameState, round, handleSubmitScore, scoreSubmitted }) => {
   const [currentScore, setCurrentScore] = useState(0);
-  console.log({ gameState })
   const categories = gameState.categories;
   return <><TableContainer>
     {gameState.users.map(user => <Paper key={user.id}>

@@ -51,8 +51,9 @@ const Play = ({ gameData, setGamePlaying }) => {
   const [finalScores, setFinalScores] = useState([]);
   const [maxRounds, setMaxRounds] = useState(0);
   const [categories, setCategories] = useState([])
+  const [isAdmin, setAdmin] = useState(gameData.isAdmin)
 
-  const isAdmin = gameData.isAdmin;
+  // const isAdmin = gameData.isAdmin;
 
   useEffect(() => {
     const { code, users, maxRounds, categories } = gameData;
@@ -63,6 +64,11 @@ const Play = ({ gameData, setGamePlaying }) => {
   }, [gameData]);
 
   useEffect(() => {
+    socket.on("restartGame", () => {
+      setFinalScores([]);
+      setGameEnded(false);
+    })
+
     socket.on("gameData", ({ users }) => {
       setUsers(users);
     });
@@ -108,7 +114,9 @@ const Play = ({ gameData, setGamePlaying }) => {
       setGameEnded(true)
       startGame(false)
       setLoading(false)
-
+      setUsers(gameState.users)
+      // New person who starts the game will be admin
+      setAdmin(false);
       setFinalScores(scores)
     });
 
@@ -147,6 +155,17 @@ const Play = ({ gameData, setGamePlaying }) => {
     })
   }
 
+  const handleRestartGame = (event) => {
+    event.preventDefault()
+    startGame(false);
+    socket.emit('restartGame', { code }, () => {
+      setFinalScores([]);
+      setGameEnded(false);
+      setAdmin(true);
+    })
+
+  }
+
   const handleStartNextRound = () => {
     // If everyone is ready to start next round, then start next round 
     socket.emit('playerReady', { code, round: currentGameRound }, ({ gameState }) => {
@@ -158,7 +177,7 @@ const Play = ({ gameData, setGamePlaying }) => {
 
   const renderGameState = () => {
     if (loading) return <FlexContainer><Spinner /></FlexContainer>
-    if (gameEnded) return <FinalScreen scores={finalScores} />
+    if (gameEnded) return <FinalScreen handleRestartGame={handleRestartGame} scores={finalScores} />
     if (!gameStarted) return <StartGameScreen handleStartGame={handleStartGame} isAdmin={isAdmin} />
     else if (allScoresCollected)
       return <ScoreTable handleStartNextRound={handleStartNextRound} round={currentGameRound} gameState={gameState} />
@@ -195,7 +214,7 @@ const StartGameScreen = ({ handleStartGame, isAdmin }) => {
     </Button> : <FlexColumn><h3>Waiting for admin to start the game..</h3><Spinner /></FlexColumn>}</FlexContainer>
 }
 
-const FinalScreen = ({ scores }) => {
+const FinalScreen = ({ scores, handleRestartGame }) => {
   let winner = {
     score: 0,
   };
@@ -219,6 +238,7 @@ const FinalScreen = ({ scores }) => {
       }
     </FlexContainer>
     <h2 style={{ textAlign: "center" }}>{`🎉🎉 The winner is: ${winner.name || 'No winner!'} 🎉🎉`}</h2>
+    {<Button fontSize="25px" padding="15px" minWidth="220px" onClick={(event) => handleRestartGame(event)}>Play Again</Button>}
   </FlexColumn >
 }
 
