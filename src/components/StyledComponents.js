@@ -9,7 +9,7 @@ const StyledInput = styled.input`
   margin: 10px;
   padding: 10px;
   max-width: 100px;
-  min-width: 80px;
+  min-width: ${props => props.minWidth || '80px'};
   border: 1px solid black;
   font-size: 1.2em;
 `

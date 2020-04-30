@@ -38,9 +38,9 @@ const Play = ({ gameData, setGamePlaying }) => {
 
   useEffect(() => {
     const { code, users, maxRounds, categories } = gameData;
-    setUsers(users)
+    setUsers(users);
     setCode(code);
-    setMaxRounds(maxRounds)
+    setMaxRounds(Number(maxRounds))
     setCategories(categories)
   }, [gameData]);
 
@@ -161,7 +161,7 @@ const Play = ({ gameData, setGamePlaying }) => {
     if (gameEnded) return <FinalScreen handleRestartGame={handleRestartGame} scores={finalScores} />
     if (!gameStarted) return <StartGameScreen handleStartGame={handleStartGame} isAdmin={isAdmin} />
     else if (allScoresCollected)
-      return <ScoreTable handleStartNextRound={handleStartNextRound} round={currentGameRound} gameState={gameState} />
+      return <ScoreTable maxRounds={maxRounds} handleStartNextRound={handleStartNextRound} round={currentGameRound} gameState={gameState} />
     else if (responseSubmitted && !allResponsesCollected)
       return <FlexContainer><Spinner /></FlexContainer>
     else if (allResponsesCollected)

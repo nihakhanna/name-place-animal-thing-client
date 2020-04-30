@@ -69,7 +69,7 @@ const Create = ({ cancel, setGameData, setGamePlaying }) => {
       <form>
         {!code ? <FlexColumn>
           <p>
-            <label htmlFor="name">Name:</label>
+            <label htmlFor="name">Your Name:</label>
             <StyledInput maxLength="15" name="name" type="text" onChange={(event) => setName(event.target.value)} />
           </p>
           <h2>Select number of rounds:</h2>

@@ -7,13 +7,15 @@ const Container = styled.div`
   flex-wrap: wrap;
   justify-content: space-around;
   text-align: center;
+  font-size: 1.5em;
 `
 
-const ScoreTable = ({ gameState, round, handleStartNextRound }) => {
+const ScoreTable = ({ maxRounds, gameState, round, handleStartNextRound }) => {
+  console.log({ maxRounds })
   const [playerReady, setPlayerReady] = useState(false)
   return <><Container>
     {gameState.users.map(user => <div key={user.id}>
-      <h2>{user.name}</h2>
+      <h3>{user.name}</h3>
       <p>{user.scores[round]}</p>
     </div>)}
   </Container>
@@ -26,7 +28,7 @@ const ScoreTable = ({ gameState, round, handleStartNextRound }) => {
       </> : <Button onClick={() => {
         setPlayerReady(true)
         handleStartNextRound()
-      }}>Start Next Round</Button>}
+      }}>{round === maxRounds ? 'See Final Scores 🤩' : 'Start Next Round'}</Button>}
     </FlexContainer>
   </>
 }

@@ -42,7 +42,7 @@ const Join = ({ cancel, setGameData, setGamePlaying }) => {
     <FormContainer>
       <form>
         <FormItem>
-          <label htmlFor="name">User Name:</label>
+          <label htmlFor="name">Your Name:</label>
           <StyledInput maxLength="15" name="name" type="text" onChange={(event) => setName(event.target.value)} />
         </FormItem>
         <FormItem>

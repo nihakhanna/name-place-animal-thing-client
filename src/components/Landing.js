@@ -6,7 +6,7 @@ import Join from './Join';
 import Create from './Create';
 import Play from './Game/Play';
 
-import { Button, ExitButton, ExitButtonContainer } from './StyledComponents'
+import { Button, ExitButton, ExitButtonContainer, FlexColumn } from './StyledComponents'
 
 const InstructionHeader = styled.h2`
   color: ${theme.colors.red}
@@ -18,10 +18,6 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   font-family: ${theme.font}
-`
-
-const IntroContainer = styled.div`
-  text-align: center;
 `
 
 const Header = styled.div`
@@ -37,19 +33,16 @@ const Header = styled.div`
 `
 
 const ButtonContainer = styled.div`
-width: 100%;
-display: flex;
-align-items: center;
-justify-content: center;
-height: 100%;
-flex-direction: column;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  flex-direction: column;
 `
 
 const TopButtonContainer = styled.div`
-width: 100%;
-align-items: center;
-justify-content: center;
-flex-direction: column;
+  margin-bottom: 20px;
 `
 
 const Footer = styled.div`
@@ -76,7 +69,7 @@ const Landing = () => {
         <Play
           setGamePlaying={setGamePlaying} gameData={gameData} /> : showInstructions ? <Instructions cancel={toggleInstructions} /> : <>
             {!(showJoinForm || showCreateForm) &&
-              <IntroContainer>
+              <FlexColumn>
                 <TopButtonContainer>
                   <Button fontSize="25px" padding="15px" minWidth="220px" onClick={() => toggleInstructions(true)}>How To Play</Button>
                 </TopButtonContainer>
@@ -93,7 +86,7 @@ const Landing = () => {
                     toggleCreateForm(true)
                   }}>Create New Game</Button>
                 </ButtonContainer>
-              </IntroContainer>}
+              </FlexColumn>}
             {showJoinForm && <Join cancel={toggleJoinForm} setGamePlaying={setGamePlaying} setGameData={setGameData} />}
             {showCreateForm && <Create setGamePlaying={setGamePlaying} setGameData={setGameData} cancel={toggleCreateForm} />}
           </>}
