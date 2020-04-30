@@ -41,18 +41,22 @@ const InputTable = ({ sendResponse, timerValue, categories }) => {
   if (timerValue === 60) {
     sendResponse(response)
   }
-  return <Paper><TableContainer>
-    {categories.map(cat => <span key={cat}>
-      <label style={{ display: 'none' }} htmlFor={cat}>{`${cat}:`}</label>
-      <StyledInput placeholder={cat} maxLength="30" name={cat} type="text" onChange={(event) => {
-        setResponse(Object.assign({}, response, { [cat]: event.target.value }))
-      }} />
-    </span>)}
-  </TableContainer>
-    <Button onClick={(event) => {
-      event.preventDefault()
-      sendResponse(response)
-    }}>Submit Response</Button></Paper>
+  return <Paper>
+    <form>
+      <TableContainer>
+        {categories.map(cat => <span key={cat}>
+          <label style={{ display: 'none' }} htmlFor={cat}>{`${cat}:`}</label>
+          <StyledInput placeholder={cat} maxLength="30" name={cat} type="text" onChange={(event) => {
+            setResponse(Object.assign({}, response, { [cat]: event.target.value }))
+          }} />
+        </span>)}
+      </TableContainer>
+      <Button onClick={(event) => {
+        event.preventDefault()
+        sendResponse(response)
+      }}>Submit Response</Button>
+    </form>
+  </Paper>
 }
 
 export default InputTable;
