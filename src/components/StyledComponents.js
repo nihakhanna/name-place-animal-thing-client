@@ -67,11 +67,35 @@ const ExitButton = styled.button`
   color: ${theme.colors.red};
   padding: 5px;
   cursor: pointer;
-  width: 30px;
+  width: 40px;
+  height: 40px;
   border: 1px solid ${theme.colors.red};
   box-shadow: ${theme.colors.red} 2px 2px 0px 0px;
-  border-radius: 15px;
+  border-radius: 20px;
   font-family: 'Schoolbell', cursive;;
+`
+
+
+
+const SoundButtonContainer = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  margin: 20px;
+`
+
+const SoundButton = styled.button`
+  font-size: 15px;
+  color: ${theme.colors.red};
+  padding: 5px;
+  cursor: pointer;
+  width: 40px;
+  height: 40px;
+  border: 1px solid ${theme.colors.red};
+  box-shadow: ${theme.colors.red} 2px 2px 0px 0px;
+  border-radius: 20px;
+  font-family: 'Schoolbell', cursive;
+  display: flex;
 `
 
 const Spinner = () => {
@@ -85,5 +109,7 @@ export {
   Spinner,
   FlexColumn,
   ExitButtonContainer,
-  ExitButton
+  ExitButton,
+  SoundButtonContainer,
+  SoundButton
 }

@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import timerImage from '../../assets/timer.png'
+
+import tickingAudio from '../../assets/audio/ticking-timer.wav';
 
 const Container = styled.div`
   width: 100%;
@@ -44,7 +46,25 @@ const BoldContent = styled.span`
   font-size: 1.2em;
 `
 
-const GameHeader = ({ roundNumber, timerValue, currentAlphabet, maxRounds }) => {
+let tickingSound = new Audio(tickingAudio);
+
+const GameHeader = ({ roundNumber, timerValue, currentAlphabet, maxRounds, soundOn }) => {
+  useEffect(() => {
+    tickingSound.load()
+    return function cleanup() {
+      pauseAudio(tickingSound)
+    };
+  }, []);
+
+  if (tickingSound && timerValue === 49 && soundOn) {
+    playAudio(tickingSound)
+  }
+
+  if (!soundOn || timerValue == 60) {
+    pauseAudio(tickingSound)
+  }
+
+  console.log({ tickingSound })
   return <Container>
     <RoundContainer>
       <span>Round <BoldContent>{`#${roundNumber}/${maxRounds}`}</BoldContent></span>
@@ -52,6 +72,34 @@ const GameHeader = ({ roundNumber, timerValue, currentAlphabet, maxRounds }) => 
     </RoundContainer>
     <TimerContainer><TimerValue>{timerValue}</TimerValue></TimerContainer>
   </Container>
+}
+
+const playAudio = (audio) => {
+  const audioPromise = audio.play()
+  if (audioPromise !== undefined) {
+    audioPromise
+      .then(_ => {
+        // autoplay started
+      })
+      .catch(err => {
+        // catch dom exception
+        console.info(err)
+      })
+  }
+}
+
+const pauseAudio = (audio) => {
+  const audioPromise = audio.pause()
+  if (audioPromise !== undefined) {
+    audioPromise
+      .then(_ => {
+        audio.load()
+      })
+      .catch(err => {
+        // catch dom exception
+        console.info(err)
+      })
+  }
 }
 
 export default GameHeader;

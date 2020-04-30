@@ -1,21 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components'
 
-import theme, { avatars } from '../../constants/theme'
+import theme from '../../constants/theme'
 import { socket } from '../../constants/websocket'
-import { Button, FlexContainer, Spinner, FlexColumn, ExitButton, ExitButtonContainer } from '../StyledComponents'
+import { FlexContainer, Spinner, ExitButton, ExitButtonContainer } from '../StyledComponents'
 
 import InputTable from './InputTable'
 import ResultsTable from './ResultsTable'
 import ScoreTable from './ScoreTable'
 import ActivePlayers from './PlayerList'
 import GameHeader from './GameHeader'
+import FinalScreen from './FinalScreen'
+import StartGameScreen from './StartGameScreen'
 
 const Container = styled.div`
   font-family: ${theme.font};
 `
 
-const Play = ({ gameData, setGamePlaying }) => {
+const Play = ({ gameData, setGamePlaying, soundOn }) => {
   const [users, setUsers] = useState([]);
   const [code, setCode] = useState('');
   const [currentGameRound, setCurrentGameRound] = useState(1);
@@ -42,6 +44,7 @@ const Play = ({ gameData, setGamePlaying }) => {
     setCode(code);
     setMaxRounds(Number(maxRounds))
     setCategories(categories)
+
   }, [gameData]);
 
   useEffect(() => {
@@ -168,7 +171,7 @@ const Play = ({ gameData, setGamePlaying }) => {
       return <ResultsTable scoreSubmitted={scoreSubmitted} handleSubmitScore={handleSubmitScore} round={currentGameRound} gameState={gameState} />
     else
       return <>
-        {(gameStarted) ? <GameHeader maxRounds={maxRounds} timerValue={timerValue} roundNumber={currentGameRound} currentAlphabet={currentAlphabet} /> : false}
+        {(gameStarted) ? <GameHeader soundOn={soundOn} maxRounds={maxRounds} timerValue={timerValue} roundNumber={currentGameRound} currentAlphabet={currentAlphabet} /> : false}
         <InputTable categories={categories} timerValue={timerValue} sendResponse={sendResponse} />
       </>
   }
@@ -182,45 +185,6 @@ const Play = ({ gameData, setGamePlaying }) => {
     {!gameEnded && <ActivePlayers gameStarted={gameStarted || gameEnded} users={users} />}
     {renderGameState()}
   </Container>
-}
-
-
-const StartGameScreen = ({ handleStartGame, isAdmin }) => {
-  return <FlexContainer>{
-    isAdmin ? <Button onClick={(event) => {
-      event.preventDefault()
-      handleStartGame()
-    }}>
-      Start Game
-    </Button> : <FlexColumn><h3>Waiting for admin to start the game..</h3><Spinner /></FlexColumn>}</FlexContainer>
-}
-
-const FinalScreen = ({ scores, handleRestartGame }) => {
-  let winner = {
-    score: 0,
-  };
-  scores.forEach(score => {
-    if (score.score > winner.score) winner = {
-      score: score.score,
-      name: score.name
-    }
-  })
-
-
-  return <FlexColumn>
-    <h2>Final Scores</h2>
-    <FlexContainer>
-      {scores.map(user => {
-        return <div style={{ margin: "0 20px", textAlign: "center" }} key={user.name}>
-          <img alt={`${user.name} avatar`} src={avatars[user.avatarId]} width={60} height={60} />
-          <p>{user.name}: {user.score}</p>
-        </div>
-      })
-      }
-    </FlexContainer>
-    <h2 style={{ textAlign: "center" }}>{`🎉🎉 The winner is: ${winner.name || 'No winner!'} 🎉🎉`}</h2>
-    {<Button fontSize="25px" padding="15px" minWidth="220px" onClick={(event) => handleRestartGame(event)}>Play Again</Button>}
-  </FlexColumn >
 }
 
 export default Play;

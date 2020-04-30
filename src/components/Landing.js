@@ -6,7 +6,10 @@ import Join from './Join';
 import Create from './Create';
 import Play from './Game/Play';
 
-import { Button, ExitButton, ExitButtonContainer, FlexColumn } from './StyledComponents'
+import audioOn from '../assets/audio.svg'
+import audioOff from '../assets/audioOff.svg'
+
+import { Button, ExitButton, ExitButtonContainer, FlexColumn, SoundButton, SoundButtonContainer } from './StyledComponents'
 
 const InstructionHeader = styled.h2`
   color: ${theme.colors.red}
@@ -59,37 +62,42 @@ const Landing = () => {
   const [showCreateForm, toggleCreateForm] = useState(false)
   const [isGamePlaying, setGamePlaying] = useState(false)
   const [gameData, setGameData] = useState({})
+  const [soundOn, toggleSound] = useState(true);
 
   return (
     <Container>
       <Header>
         Name, Place, Animal, Thing
       </Header>
+      <SoundButtonContainer>
+        <SoundButton onClick={() => toggleSound(!soundOn)}>
+          <img height="22px" width="22px" style={{ margin: '0 auto' }} src={soundOn ? audioOn : audioOff} />
+        </SoundButton>
+      </SoundButtonContainer>
       {isGamePlaying ?
-        <Play
-          setGamePlaying={setGamePlaying} gameData={gameData} /> : showInstructions ? <Instructions cancel={toggleInstructions} /> : <>
-            {!(showJoinForm || showCreateForm) &&
-              <FlexColumn>
-                <TopButtonContainer>
-                  <Button fontSize="25px" padding="15px" minWidth="220px" onClick={() => toggleInstructions(true)}>How To Play</Button>
-                </TopButtonContainer>
-                <ButtonContainer>
-                  <Button fontSize="25px" padding="15px" minWidth="220px" onClick={(event) => {
-                    event.preventDefault()
-                    toggleJoinForm(true)
-                    toggleCreateForm(false)
-                  }}
-                  >Join Existing Game</Button>
-                  <Button fontSize="25px" padding="15px" minWidth="220px" onClick={(event) => {
-                    event.preventDefault()
-                    toggleJoinForm(false)
-                    toggleCreateForm(true)
-                  }}>Create New Game</Button>
-                </ButtonContainer>
-              </FlexColumn>}
-            {showJoinForm && <Join cancel={toggleJoinForm} setGamePlaying={setGamePlaying} setGameData={setGameData} />}
-            {showCreateForm && <Create setGamePlaying={setGamePlaying} setGameData={setGameData} cancel={toggleCreateForm} />}
-          </>}
+        <Play soundOn={soundOn} setGamePlaying={setGamePlaying} gameData={gameData} /> : showInstructions ? <Instructions cancel={toggleInstructions} /> : <>
+          {!(showJoinForm || showCreateForm) &&
+            <FlexColumn>
+              <TopButtonContainer>
+                <Button fontSize="25px" padding="15px" minWidth="220px" onClick={() => toggleInstructions(true)}>How To Play</Button>
+              </TopButtonContainer>
+              <ButtonContainer>
+                <Button fontSize="25px" padding="15px" minWidth="220px" onClick={(event) => {
+                  event.preventDefault()
+                  toggleJoinForm(true)
+                  toggleCreateForm(false)
+                }}
+                >Join Existing Game</Button>
+                <Button fontSize="25px" padding="15px" minWidth="220px" onClick={(event) => {
+                  event.preventDefault()
+                  toggleJoinForm(false)
+                  toggleCreateForm(true)
+                }}>Create New Game</Button>
+              </ButtonContainer>
+            </FlexColumn>}
+          {showJoinForm && <Join cancel={toggleJoinForm} setGamePlaying={setGamePlaying} setGameData={setGameData} />}
+          {showCreateForm && <Create setGamePlaying={setGamePlaying} setGameData={setGameData} cancel={toggleCreateForm} />}
+        </>}
       <Footer></Footer>
     </Container>
 
