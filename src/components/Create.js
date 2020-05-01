@@ -8,6 +8,7 @@ import theme from '../constants/theme'
 
 const FormContainer = styled.div`
   padding: 20px;
+  padding-top: 30px;
   display: flex;
   flex-direction: column;
   text-align: center;
@@ -102,13 +103,13 @@ const Create = ({ cancel, setGameData, setGamePlaying }) => {
             setCode(hri.random())
           }}>Generate Game Code</Button>
         </FlexColumn>
-          : <><p>
+          : <div style={{ padding: "80px 20px 20px 20px" }}><p>
             Your Game Code is:
             <GameCode>{` `}{code}</GameCode>.
             Send it to your friends to start the game!
           </p>
             <Button fontSize="25px" padding="15px" minWidth="220px" onClick={(event) => handleCreateGame(event)}>Create Room & Enter
-            </Button></>}
+            </Button></div>}
         <Button fontSize="25px" padding="15px" minWidth="220px" onClick={() => cancel()}>Cancel</Button>
       </form>
     </FormContainer>
@@ -123,7 +124,6 @@ const checkAtleastOneSelected = (categoriesList, categories) => {
       enableButton = true;
     }
   })
-  console.log(enableButton)
   return enableButton
 }
 

@@ -15,6 +15,7 @@ import StartGameScreen from './StartGameScreen'
 
 const Container = styled.div`
   font-family: ${theme.font};
+  padding-top: 80px;
 `
 
 const Play = ({ gameData, setGamePlaying, soundOn }) => {

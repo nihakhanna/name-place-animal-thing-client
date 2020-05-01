@@ -16,18 +16,19 @@ import { Button, FlexColumn, SoundButton, SoundButtonContainer } from './StyledC
 
 const Container = styled.div`
   width: 100vw;
-  height: 100vh;
   display: flex;
+  padding-top: 50px;
   flex-direction: column;
   font-family: ${theme.font}
 `
 
 const Header = styled.div`
  padding: 20px;
- height: 100px;
+ height: 50px;
  font-size: 50px;
  text-align: center;
  margin-top: 100px;
+ margin-bottom: 40px;
  @media (max-width: 768px) {
   font-size: 30px;
   height: 80px;
@@ -47,10 +48,6 @@ const TopButtonContainer = styled.div`
   margin-bottom: 20px;
 `
 
-const Footer = styled.div`
-  height: 50px;
-`
-
 const Landing = () => {
   const [showInstructions, toggleInstructions] = useState(false)
   const [showJoinForm, toggleJoinForm] = useState(false)
@@ -61,9 +58,6 @@ const Landing = () => {
 
   return (
     <Container>
-      <Header>
-        Name, Place, Animal, Thing
-      </Header>
       <SoundButtonContainer>
         <SoundButton onClick={() => toggleSound(!soundOn)}>
           <img height="22px" width="22px" style={{ margin: '0 auto' }} src={soundOn ? audioOn : audioOff} />
@@ -73,6 +67,9 @@ const Landing = () => {
         <Play soundOn={soundOn} setGamePlaying={setGamePlaying} gameData={gameData} /> : showInstructions ? <Instructions cancel={toggleInstructions} /> : <>
           {!(showJoinForm || showCreateForm) &&
             <FlexColumn>
+              <Header>
+                Name, Place, Animal, Thing
+              </Header>
               <TopButtonContainer>
                 <Button fontSize="25px" padding="15px" minWidth="220px" onClick={() => toggleInstructions(true)}>How To Play</Button>
               </TopButtonContainer>
@@ -93,7 +90,6 @@ const Landing = () => {
           {showJoinForm && <Join cancel={toggleJoinForm} setGamePlaying={setGamePlaying} setGameData={setGameData} />}
           {showCreateForm && <Create setGamePlaying={setGamePlaying} setGameData={setGameData} cancel={toggleCreateForm} />}
         </>}
-      <Footer></Footer>
     </Container>
 
   )
