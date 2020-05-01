@@ -28,14 +28,23 @@ const Create = ({ cancel, setGameData, setGamePlaying }) => {
   const [code, setCode] = useState('');
   const [rounds, setRounds] = useState("5");
   const [categories, setCategories] = useState({
+    Name: true,
+    Place: true,
+    Animal: true,
+    Thing: true,
     Songs: false,
     Movies: false,
     "TV shows": false,
     Fruits: false,
     Vegetables: false,
     Books: false,
-    Subjects: false
+    Subjects: false,
+    Celebrities: false,
+    Musicians: false,
+    Instruments: false
   })
+
+  const categoriesArray = Object.keys(categories);
 
   const options = ["5", "7", "10"]
   const gameData = {
@@ -45,12 +54,10 @@ const Create = ({ cancel, setGameData, setGamePlaying }) => {
   const handleCreateGame = (event) => {
     event.preventDefault()
     let cats = [];
-    Object.keys(categories).forEach(cat => {
+    categoriesArray.forEach(cat => {
       if (categories[cat]) cats.push(cat);
     });
 
-    // Don't hardcode, but always default to name, place, animal, thing
-    cats = ['Name', 'Place', 'Animal', 'Thing', ...cats];
     socket.emit('create', { name, code, rounds, categories: cats }, ({ error, users }) => {
       if (error) {
         alert(error);
@@ -63,6 +70,8 @@ const Create = ({ cancel, setGameData, setGamePlaying }) => {
       }
     });
   }
+
+  let disabled = !name || !checkAtleastOneSelected(categoriesArray, categories)
 
   return (
     <FormContainer>
@@ -79,16 +88,16 @@ const Create = ({ cancel, setGameData, setGamePlaying }) => {
               <label htmlFor={option}>{option}</label>
             </CheckBoxContainer>)}
           </FlexContainer>
-          <h2>Select additional categories:</h2>
+          <h2>Select categories:</h2>
           <FlexContainer>
-            {Object.keys(categories).map(cat => <CheckBoxContainer key={cat}>
+            {categoriesArray.map(cat => <CheckBoxContainer key={cat}>
               <input type="checkbox" id={cat} name="categories" onChange={(event) => {
                 setCategories(Object.assign({}, categories, { [cat]: event.target.checked }))
               }} checked={categories[cat]} />
               <label htmlFor={cat}>{cat}</label>
             </CheckBoxContainer>)}
           </FlexContainer>
-          <Button disabled={!name} fontSize="25px" padding="15px" minWidth="220px" onClick={(event) => {
+          <Button disabled={disabled} fontSize="25px" padding="15px" minWidth="220px" onClick={(event) => {
             event.preventDefault()
             setCode(hri.random())
           }}>Generate Game Code</Button>
@@ -104,6 +113,18 @@ const Create = ({ cancel, setGameData, setGamePlaying }) => {
       </form>
     </FormContainer>
   )
+}
+
+
+const checkAtleastOneSelected = (categoriesList, categories) => {
+  let enableButton = false;
+  categoriesList.forEach(category => {
+    if (categories[category]) {
+      enableButton = true;
+    }
+  })
+  console.log(enableButton)
+  return enableButton
 }
 
 export default Create

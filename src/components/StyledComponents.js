@@ -72,7 +72,7 @@ const ExitButton = styled.button`
   border: 1px solid ${theme.colors.red};
   box-shadow: ${theme.colors.red} 2px 2px 0px 0px;
   border-radius: 20px;
-  font-family: 'Schoolbell', cursive;;
+  font-family: 'Schoolbell', cursive;
 `
 
 
