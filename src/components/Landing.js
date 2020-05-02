@@ -60,7 +60,7 @@ const Landing = () => {
     <Container>
       <SoundButtonContainer>
         <SoundButton onClick={() => toggleSound(!soundOn)}>
-          <img height="22px" width="22px" style={{ margin: '0 auto' }} src={soundOn ? audioOn : audioOff} />
+          <img alt="sound icon " height="22px" width="22px" style={{ margin: '0 auto' }} src={soundOn ? audioOn : audioOff} />
         </SoundButton>
       </SoundButtonContainer>
       {isGamePlaying ?

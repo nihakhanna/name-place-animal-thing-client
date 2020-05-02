@@ -7,7 +7,7 @@ import { socket } from '../constants/websocket'
 import theme from '../constants/theme'
 
 const FormContainer = styled.div`
-  padding: 20px;
+  padding: 40px;
   padding-top: 30px;
   display: flex;
   flex-direction: column;

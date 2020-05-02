@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import timerImage from '../../assets/timer.png'
 
@@ -60,7 +60,7 @@ const GameHeader = ({ roundNumber, timerValue, currentAlphabet, maxRounds, sound
     playAudio(tickingSound)
   }
 
-  if (!soundOn || timerValue == 60) {
+  if (!soundOn || timerValue === 60) {
     pauseAudio(tickingSound)
   }
 

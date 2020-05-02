@@ -56,7 +56,7 @@ const SpinContainer = styled.div`
 
 
 const ExitButtonContainer = styled.div`
-  position: absolute;
+  position: fixed;
   top: 0;
   right: 0;
   margin: 20px;
@@ -78,7 +78,7 @@ const ExitButton = styled.button`
 
 
 const SoundButtonContainer = styled.div`
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   margin: 20px;
