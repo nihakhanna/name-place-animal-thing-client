@@ -64,7 +64,6 @@ const GameHeader = ({ roundNumber, timerValue, currentAlphabet, maxRounds, sound
     pauseAudio(tickingSound)
   }
 
-  console.log({ tickingSound })
   return <Container>
     <RoundContainer>
       <span>Round <BoldContent>{`#${roundNumber}/${maxRounds}`}</BoldContent></span>

@@ -11,7 +11,6 @@ const Container = styled.div`
 `
 
 const ScoreTable = ({ maxRounds, gameState, round, handleStartNextRound }) => {
-  console.log({ maxRounds })
   const [playerReady, setPlayerReady] = useState(false)
   return <><Container>
     {gameState.users.map(user => <div key={user.id}>
