@@ -31,6 +31,7 @@ export default class MyDocument extends Document {
     return (
       <Html>
         <Head>
+          <script async src="https://www.googletagmanager.com/gtag/js?id=UA-164920809-1"></script>
           <script
             dangerouslySetInnerHTML={{
               __html: `
