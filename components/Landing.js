@@ -7,12 +7,7 @@ import Create from './Create';
 import Play from './Game/Play';
 import Instructions from './Instructions'
 
-import audioOn from '../assets/audio.svg'
-import audioOff from '../assets/audioOff.svg'
-
 import { Button, FlexColumn, SoundButton, SoundButtonContainer } from './StyledComponents'
-
-
 
 const Container = styled.div`
   width: 100vw;
@@ -60,7 +55,7 @@ const Landing = () => {
     <Container>
       <SoundButtonContainer>
         <SoundButton onClick={() => toggleSound(!soundOn)}>
-          <img alt="sound icon " height="22px" width="22px" style={{ margin: '0 auto' }} src={soundOn ? audioOn : audioOff} />
+          <img alt="sound icon " height="22px" width="22px" style={{ margin: '0 auto' }} src={soundOn ? '/assets/audio.svg' : '/assets/audioOff.svg'} />
         </SoundButton>
       </SoundButtonContainer>
       {isGamePlaying ?
