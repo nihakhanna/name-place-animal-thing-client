@@ -2,8 +2,6 @@ import React from 'react';
 import styled, { keyframes } from 'styled-components'
 import theme from '../constants/theme';
 
-import spinner from '../assets/spinner.svg'
-
 const StyledInput = styled.input`
   font-family: ${theme.font};
   margin: 10px;
@@ -99,7 +97,7 @@ const SoundButton = styled.button`
 `
 
 const Spinner = () => {
-  return <SpinContainer><img alt="loading spinner" src={spinner} /></SpinContainer>
+  return <SpinContainer><img alt="loading spinner" src='/assets/spinner.svg' /></SpinContainer>
 }
 
 export {

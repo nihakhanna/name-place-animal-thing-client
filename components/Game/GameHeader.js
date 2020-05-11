@@ -1,8 +1,5 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
-import timerImage from '../../assets/timer.png'
-
-import tickingAudio from '../../assets/audio/ticking-timer.wav';
 
 const Container = styled.div`
   width: 100%;
@@ -21,7 +18,7 @@ const TimerValue = styled.span`
 `
 
 const TimerContainer = styled.div`
-  background-image: url(${timerImage});
+  background-image: url('/assets/timer.png');
   height: 100px;
   background-size: 100px;
   width: 100px;
@@ -46,10 +43,12 @@ const BoldContent = styled.span`
   font-size: 1.2em;
 `
 
-let tickingSound = new Audio(tickingAudio);
+let tickingSound;
 
 const GameHeader = ({ roundNumber, timerValue, currentAlphabet, maxRounds, soundOn }) => {
   useEffect(() => {
+    tickingSound = new Audio('/assets/audio/ticking-timer.wav');
+
     tickingSound.load()
     return function cleanup() {
       pauseAudio(tickingSound)
