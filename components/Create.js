@@ -90,7 +90,7 @@ const Create = ({ cancel, setGameData, setGamePlaying }) => {
             </CheckBoxContainer>)}
           </FlexContainer>
           <h2>Select categories:</h2>
-          <FlexContainer>
+          <FlexContainer style={{ maxWidth: "450px" }}>
             {categoriesArray.map(cat => <CheckBoxContainer key={cat}>
               <input type="checkbox" id={cat} name="categories" onChange={(event) => {
                 setCategories(Object.assign({}, categories, { [cat]: event.target.checked }))
