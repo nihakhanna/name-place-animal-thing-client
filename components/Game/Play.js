@@ -36,6 +36,8 @@ const Play = ({ gameData, setGamePlaying, soundOn }) => {
   const [maxRounds, setMaxRounds] = useState(0);
   const [categories, setCategories] = useState([])
   const [isAdmin, setAdmin] = useState(gameData.isAdmin)
+  const [scorePartner, setScorePartner] = useState({})
+
 
   // const isAdmin = gameData.isAdmin;
 
@@ -58,8 +60,13 @@ const Play = ({ gameData, setGamePlaying, soundOn }) => {
       setUsers(users);
     });
 
-    socket.on("allSubmitted", ({ gameState }) => {
+    socket.on("allSubmitted", ({ gameState, scorePartners }) => {
       setGameState(Object.assign({}, gameState))
+      scorePartners.forEach(scorePartner => {
+        if (scorePartner[0].id === socket.id) {
+          setScorePartner(scorePartner[1])
+        }
+      })
       setAllResponsesCollected(true)
     })
 
@@ -120,10 +127,10 @@ const Play = ({ gameData, setGamePlaying, soundOn }) => {
     })
   }
 
-  const handleSubmitScore = (score) => {
+  const handleSubmitScore = (score, id) => {
     let submitScore;
     submitScore = score ? score : 0;
-    socket.emit('sendScore', { code, score: submitScore, round: currentGameRound }, ({ error, gameState }) => {
+    socket.emit('sendScore', { id, code, score: submitScore, round: currentGameRound }, ({ error, gameState }) => {
       if (error) alert(error)
       else if (gameState) {
         setScoreSubmitted(true)
@@ -169,7 +176,7 @@ const Play = ({ gameData, setGamePlaying, soundOn }) => {
     else if (responseSubmitted && !allResponsesCollected)
       return <FlexContainer><Spinner /></FlexContainer>
     else if (allResponsesCollected)
-      return <ResultsTable scoreSubmitted={scoreSubmitted} handleSubmitScore={handleSubmitScore} round={currentGameRound} gameState={gameState} />
+      return <ResultsTable scorePartner={scorePartner} scoreSubmitted={scoreSubmitted} handleSubmitScore={handleSubmitScore} round={currentGameRound} gameState={gameState} />
     else
       return <>
         {(gameStarted) ? <GameHeader soundOn={soundOn} maxRounds={maxRounds} timerValue={timerValue} roundNumber={currentGameRound} currentAlphabet={currentAlphabet} /> : false}

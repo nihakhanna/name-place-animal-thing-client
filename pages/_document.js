@@ -44,8 +44,7 @@ export default class MyDocument extends Document {
             }}
           />
           <link href="https://fonts.googleapis.com/css2?family=Schoolbell&display=swap" rel="stylesheet" type="text/css" />
-          <script data-ad-client="ca-pub-6802862631627726" async
-            src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+
           <meta charset="utf-8" />
           <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
           <meta name="viewport" content="width=device-width, initial-scale=1" />

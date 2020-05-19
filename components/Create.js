@@ -28,6 +28,7 @@ const Create = ({ cancel, setGameData, setGamePlaying }) => {
   const [name, setName] = useState('');
   const [code, setCode] = useState('');
   const [rounds, setRounds] = useState("5");
+  const [scoringType, setScoringType] = useState("cross");
   const [categories, setCategories] = useState({
     Name: true,
     Place: true,
@@ -59,10 +60,11 @@ const Create = ({ cancel, setGameData, setGamePlaying }) => {
       if (categories[cat]) cats.push(cat);
     });
 
-    socket.emit('create', { name, code, rounds, categories: cats }, ({ error, users }) => {
+    socket.emit('create', { name, code, rounds, categories: cats, scoringType }, ({ error, users }) => {
       if (error) {
         alert(error);
       } else {
+
         gameData.users = users;
         gameData.maxRounds = Number(rounds);
         gameData.categories = cats;
@@ -97,6 +99,18 @@ const Create = ({ cancel, setGameData, setGamePlaying }) => {
               }} checked={categories[cat]} />
               <label htmlFor={cat}>{cat}</label>
             </CheckBoxContainer>)}
+          </FlexContainer>
+          <h2>Scoring Rules:</h2>
+          <FlexContainer>
+            <CheckBoxContainer>
+              <input type="radio" id="cross" name="scoring" value="cross" onChange={(event) => setScoringType(event.target.value)} checked={scoringType === "cross"} />
+              <label htmlFor="cross">Score Each Other</label>
+            </CheckBoxContainer>
+            <CheckBoxContainer key="self">
+              <input type="radio" id="self" name="scoring" value="self" onChange={(event) => setScoringType(event.target.value)} checked={scoringType === "self"} />
+              <label htmlFor="self">Score Yourself</label>
+            </CheckBoxContainer>
+
           </FlexContainer>
           <Button disabled={disabled} fontSize="25px" padding="15px" minWidth="220px" onClick={(event) => {
             event.preventDefault()

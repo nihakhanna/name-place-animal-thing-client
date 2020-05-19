@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import { Button, Spinner, FlexColumn } from '../StyledComponents'
+import { Button, Spinner, FlexColumn, FlexContainer } from '../StyledComponents'
 import theme from '../../constants/theme'
 import { socket } from '../../constants/websocket'
 
@@ -63,7 +63,7 @@ const NumberContainer = styled.div`
   justify-content: center;
 `
 
-const ResultsTable = ({ gameState, round, handleSubmitScore, scoreSubmitted }) => {
+const ResultsTable = ({ gameState, round, handleSubmitScore, scoreSubmitted, scorePartner }) => {
   const [currentScore, setCurrentScore] = useState({});
   const categories = gameState.categories;
   let totalScore = 0;
@@ -71,38 +71,45 @@ const ResultsTable = ({ gameState, round, handleSubmitScore, scoreSubmitted }) =
     totalScore = sumAllScores(currentScore)
   }, [currentScore])
 
-  let users = sortUserList([...gameState.users])
 
-  return <><TableContainer>
-    {users.map(user => <Paper key={user.id}>
-      <h2 style={{ display: 'flex', justifyContent: 'space-between' }}><span>{user.name}</span>
-        {user.id === socket.id ? <span>Score</span> : false}
-      </h2>
-      {categories.map(category => {
-        let similar = similarityCheck(category, users, user.id, round)
-        let selfScoreCard = user.id === socket.id;
-        return <React.Fragment key={category}>
-          {similar.value && selfScoreCard ? <span style={{ color: theme.colors.red }}>You and {similar.name} put down the same word for {category}</span> : false}
-          <div style={{ marginBottom: '10px', display: "flex", justifyContent: 'space-between', alignItems: 'center' }} key={category}>
-            <div style={{ width: selfScoreCard ? "150px" : "auto", fontSize: "1.2em" }}>
-              {category}:{`  `} <Submission>{user.responses[round][category] || '-'}</Submission>
+  let scoringId = gameState.scoringType === "cross" ? scorePartner.id : socket.id
+  // sort users so the person being score always comes first
+  let users = sortUserList([...gameState.users], scoringId)
+
+
+
+  return <>
+    {gameState.scoringType === "cross" ? <FlexContainer><h1>You are scoring for <Submission>{scorePartner.name}</Submission>!</h1></FlexContainer> : false}
+    <TableContainer>
+      {users.map(user => <Paper key={user.id}>
+        <h2 style={{ display: 'flex', justifyContent: 'space-between' }}><span>{user.name}</span>
+          {user.id === scoringId ? <span>Score</span> : false}
+        </h2>
+        {categories.map(category => {
+          let similar = similarityCheck(category, users, user.id, round)
+          let selfScoreCard = user.id === scoringId;
+          return <React.Fragment key={category}>
+            {similar.value && selfScoreCard ? <span style={{ color: theme.colors.red }}>{scorePartner.name || 'You'} and {similar.name} put down the same word for {category}</span> : false}
+            <div style={{ marginBottom: '10px', display: "flex", justifyContent: 'space-between', alignItems: 'center' }} key={category}>
+              <div style={{ width: selfScoreCard ? "150px" : "auto", fontSize: "1.2em" }}>
+                {category}:{`  `} <Submission>{user.responses[round][category] || '-'}</Submission>
+              </div>
+              {selfScoreCard ?
+                user.responses[round][category] ? <InputContainer>
+                  <NumberInput category={category} setCurrentScore={setCurrentScore} currentScore={currentScore} value={similar.value ? 5 : 0} /> </InputContainer> : <NumberContainer>0</NumberContainer>
+                : ''}
             </div>
-            {selfScoreCard ?
-              user.responses[round][category] ? <InputContainer>
-                <NumberInput category={category} setCurrentScore={setCurrentScore} currentScore={currentScore} value={similar.value ? 5 : 0} /> </InputContainer> : <NumberContainer>0</NumberContainer>
-              : ''}
-          </div>
-        </React.Fragment>
-      }
-      )}
-      {user.id === socket.id ? <h2>{`Total Score: ${sumAllScores(currentScore)}`}</h2> : false}
-    </Paper>)}
-  </TableContainer>
+          </React.Fragment>
+        }
+        )}
+        {user.id === scoringId ? <h2>{`Total Score: ${sumAllScores(currentScore)}`}</h2> : false}
+      </Paper>)}
+    </TableContainer>
     <Container>
       {!scoreSubmitted ? <>
         <Button onClick={(event) => {
           event.preventDefault()
-          handleSubmitScore(totalScore)
+          handleSubmitScore(totalScore, scoringId)
         }}>Submit</Button>
       </> : <FlexColumn>
           <h2>Waiting for others</h2>
@@ -150,8 +157,8 @@ const NumberInput = ({ value, currentScore, setCurrentScore, category }) => {
 }
 
 
-const sortUserList = (users) => {
-  let index = users.findIndex(user => user.id === socket.id);
+const sortUserList = (users, scoringId) => {
+  let index = users.findIndex(user => user.id === scoringId);
   if (index != -1) {
     let first = users.splice(index, 1)[0];
     users.unshift(first);
