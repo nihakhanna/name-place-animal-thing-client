@@ -52,7 +52,7 @@ export default class MyDocument extends Document {
 
           <meta name="title" content="Name, Place, Animal, Thing"></meta>
           <meta name="description"
-            content="Play 'Name, Place, Animal, Thing' online! The iconic game has moved from our school notebooks to the online world. You can add additional categories besides name, place, animal and thing. Play with up to 10 of your friends online, from anywhere in the world!"></meta>
+            content="Play 'Name, Place, Animal, Thing' online! The iconic game has moved from our school notebooks to the online world. You can add additional categories besides name, place, animal and thing. Play with up to 10 of your friends online, from anywhere in the world! Variations of the game are called 'Boy, Girl, Fruit, Flower' and 'Petit Bac' or 'Petit Baccalauréat' in French"></meta>
 
           <meta property="og:type" content="website" />
           <meta property="og:url" content="https://nameplaceanimalthing.online/" />
