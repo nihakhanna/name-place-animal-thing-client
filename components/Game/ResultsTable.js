@@ -64,18 +64,29 @@ const NumberContainer = styled.div`
 `
 
 const ResultsTable = ({ gameState, round, handleSubmitScore, scoreSubmitted, scorePartner }) => {
-  const [currentScore, setCurrentScore] = useState({});
+  let initialScore = {}
   const categories = gameState.categories;
-  let totalScore = 0;
-  useEffect(() => {
-    totalScore = sumAllScores(currentScore)
-  }, [currentScore])
-
 
   let scoringId = gameState.scoringType === "cross" ? scorePartner.id : socket.id
   // sort users so the person being score always comes first
   let users = sortUserList([...gameState.users], scoringId)
 
+  users.forEach(user => {
+    categories.forEach(cat => {
+      let similar = similarityCheck(cat, users, user.id, round)
+      if (user.id === scoringId && similar.value) {
+
+        initialScore = Object.assign({}, initialScore, { [cat]: 5 })
+      }
+    })
+  })
+
+  const [currentScore, setCurrentScore] = useState(initialScore);
+
+  let totalScore = 0;
+  useEffect(() => {
+    totalScore = sumAllScores(currentScore)
+  }, [currentScore])
 
 
   return <>
