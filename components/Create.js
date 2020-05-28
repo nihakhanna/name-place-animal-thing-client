@@ -62,9 +62,11 @@ const Create = ({ cancel, setGameData, setGamePlaying }) => {
 
     socket.emit('create', { name, code, rounds, categories: cats, scoringType }, ({ error, users }) => {
       if (error) {
+        gtag('event', 'create_error', {
+          error
+        })
         alert(error);
       } else {
-
         gameData.users = users;
         gameData.maxRounds = Number(rounds);
         gameData.categories = cats;

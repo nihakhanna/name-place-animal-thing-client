@@ -187,6 +187,7 @@ const Play = ({ gameData, setGamePlaying, soundOn }) => {
   return <Container>
     <ExitButtonContainer><ExitButton onClick={() => {
       socket.emit('removeUserFromGame', { code }, () => {
+        gtag("event", "close_game")
         setGamePlaying(false)
       })
     }}>X</ExitButton></ExitButtonContainer>

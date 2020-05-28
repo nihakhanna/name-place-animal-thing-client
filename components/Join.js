@@ -27,6 +27,9 @@ const Join = ({ cancel, setGameData, setGamePlaying }) => {
     event.preventDefault();
     socket.emit('join', { name, code }, ({ error, users, maxRounds, categories }) => {
       if (error) {
+        gtag('event', 'join_error', {
+          error
+        })
         alert(error);
       } else {
         gameData.maxRounds = maxRounds;

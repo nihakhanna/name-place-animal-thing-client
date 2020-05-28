@@ -27,7 +27,11 @@ const FinalScreen = ({ scores, handleRestartGame }) => {
       }
     </FlexContainer>
     <h2 style={{ textAlign: "center" }}>{`🎉🎉 The winner is: ${winner.name || 'No winner!'} 🎉🎉`}</h2>
-    {<Button fontSize="25px" padding="15px" minWidth="220px" onClick={(event) => handleRestartGame(event)}>Play Again</Button>}
+    {<Button fontSize="25px" padding="15px" minWidth="220px" onClick={(event) => {
+      gtag('event', 'play_again');
+      event.preventDefault()
+      handleRestartGame(event)
+    }}>Play Again</Button>}
   </FlexColumn >
 }
 
