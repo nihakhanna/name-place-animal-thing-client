@@ -73,12 +73,14 @@ const Landing = () => {
               </TopButtonContainer>
               <ButtonContainer>
                 <Button fontSize="25px" padding="15px" minWidth="220px" onClick={(event) => {
+                  gtag('event', 'view_form_join');
                   event.preventDefault()
                   toggleJoinForm(true)
                   toggleCreateForm(false)
                 }}
                 >Join Existing Game</Button>
                 <Button fontSize="25px" padding="15px" minWidth="220px" onClick={(event) => {
+                  gtag('event', 'view_form_create');
                   event.preventDefault()
                   toggleJoinForm(false)
                   toggleCreateForm(true)

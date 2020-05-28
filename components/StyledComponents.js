@@ -52,7 +52,6 @@ const SpinContainer = styled.div`
   animation: ${spin} 1.4s linear infinite;
 `
 
-
 const ExitButtonContainer = styled.div`
   position: fixed;
   top: 0;
@@ -73,13 +72,12 @@ const ExitButton = styled.button`
   font-family: 'Schoolbell', cursive;
 `
 
-
-
 const SoundButtonContainer = styled.div`
   position: fixed;
   top: 0;
   left: 0;
   margin: 20px;
+  z-index: 9999;
 `
 
 const SoundButton = styled.button`

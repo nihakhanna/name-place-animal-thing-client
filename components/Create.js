@@ -122,7 +122,14 @@ const Create = ({ cancel, setGameData, setGamePlaying }) => {
             <GameCode>{` `}{code}</GameCode>.
             Send it to your friends to start the game!
           </p>
-            <Button fontSize="25px" padding="15px" minWidth="220px" onClick={(event) => handleCreateGame(event)}>Create Room & Enter
+            <Button fontSize="25px" padding="15px" minWidth="220px" onClick={(event) => {
+              event.preventDefault()
+              gtag('event', 'create_room', {
+                categories: categoriesArray.join(','),
+                rounds: rounds
+              });
+              handleCreateGame(event)
+            }}>Create Room & Enter
             </Button></div>}
         <Button fontSize="25px" padding="15px" minWidth="220px" onClick={() => cancel()}>Cancel</Button>
       </form>
