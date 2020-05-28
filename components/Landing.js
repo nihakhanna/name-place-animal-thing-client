@@ -6,6 +6,7 @@ import Join from './Join';
 import Create from './Create';
 import Play from './Game/Play';
 import Instructions from './Instructions'
+import Footer from './Footer'
 
 import { Button, FlexColumn, SoundButton, SoundButtonContainer } from './StyledComponents'
 
@@ -24,9 +25,11 @@ const Header = styled.div`
  text-align: center;
  margin-top: 100px;
  margin-bottom: 40px;
- @media (max-width: 768px) {
+ @media (max-width: 500px) {
   font-size: 30px;
   height: 80px;
+  margin-bottom: 0px;
+  margin-top: 50px;
 }
 `
 
@@ -61,7 +64,7 @@ const Landing = () => {
       {isGamePlaying ?
         <Play soundOn={soundOn} setGamePlaying={setGamePlaying} gameData={gameData} /> : showInstructions ? <Instructions cancel={toggleInstructions} /> : <>
           {!(showJoinForm || showCreateForm) &&
-            <FlexColumn>
+            <><FlexColumn>
               <Header>
                 Name, Place, Animal, Thing
               </Header>
@@ -81,7 +84,8 @@ const Landing = () => {
                   toggleCreateForm(true)
                 }}>Create New Game</Button>
               </ButtonContainer>
-            </FlexColumn>}
+            </FlexColumn>
+              <Footer /></>}
           {showJoinForm && <Join cancel={toggleJoinForm} setGamePlaying={setGamePlaying} setGameData={setGameData} />}
           {showCreateForm && <Create setGamePlaying={setGamePlaying} setGameData={setGameData} cancel={toggleCreateForm} />}
         </>}

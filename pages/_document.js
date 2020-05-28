@@ -50,21 +50,21 @@ export default class MyDocument extends Document {
           <meta name="viewport" content="width=device-width, initial-scale=1" />
           <meta name="theme-color" content="#000000" />
 
-          <meta name="title" content="Name, Place, Animal, Thing"></meta>
+          <meta name="title" content="Name, Place, Animal, Thing | Online Multiplayer"></meta>
           <meta name="description"
-            content="Play 'Name, Place, Animal, Thing' online! The iconic game has moved from our school notebooks to the online world. You can add additional categories besides name, place, animal and thing. Play with up to 10 of your friends online, from anywhere in the world! Variations of the game are called 'Boy, Girl, Fruit, Flower' and 'Petit Bac' or 'Petit Baccalauréat' in French"></meta>
+            content="Play 'Name, Place, Animal, Thing' online with friends! The iconic game has moved from our school notebooks to the online world. You can add additional categories besides name, place, animal and thing. Play with up to 10 of your friends online, from anywhere in the world! Variations of the game are called 'Boy, Girl, Fruit, Flower' and 'Petit Bac' or 'Petit Baccalauréat' in French"></meta>
 
           <meta property="og:type" content="website" />
           <meta property="og:url" content="https://nameplaceanimalthing.online/" />
-          <meta property="og:title" content="Name, Place, Animal, Thing" />
+          <meta property="og:title" content="Name, Place, Animal, Thing | Online Multiplayer" />
           <meta property="og:description"
-            content="Play 'Name, Place, Animal, Thing' online! The iconic game has moved from our school notebooks to the online world. You can add additional categories besides name, place, animal and thing. Play with up to 10 of your friends online, from anywhere in the world!" />
+            content="Play 'Name, Place, Animal, Thing' online with friends! The iconic game has moved from our school notebooks to the online world. You can add additional categories besides name, place, animal and thing. Play with up to 10 of your friends online, from anywhere in the world!" />
           <meta property="og:image" content="https://www.dropbox.com/s/creagk6nws7f13d/banner.png?raw=1" />
           <meta property="twitter:card" content="summary_large_image" />
           <meta property="twitter:url" content="https://nameplaceanimalthing.online/" />
-          <meta property="twitter:title" content="Name, Place, Animal, Thing" />
+          <meta property="twitter:title" content="Name, Place, Animal, Thing | Online Multiplayer" />
           <meta property="twitter:description"
-            content="Play 'Name, Place, Animal, Thing' online! The iconic game has moved from our school notebooks to the online world. You can add additional categories besides name, place, animal and thing. Play with up to 10 of your friends online, from anywhere in the world!" />
+            content="Play 'Name, Place, Animal, Thing' online with friends! The iconic game has moved from our school notebooks to the online world. You can add additional categories besides name, place, animal and thing. Play with up to 10 of your friends online, from anywhere in the world!" />
           <meta property="twitter:image" content="https://www.dropbox.com/s/creagk6nws7f13d/banner.png?raw=1" />
         </Head>
         <body>
