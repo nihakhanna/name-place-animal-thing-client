@@ -191,7 +191,7 @@ const Play = ({ gameData, setGamePlaying, soundOn }) => {
         setGamePlaying(false)
       })
     }}>X</ExitButton></ExitButtonContainer>
-    {!gameEnded && <ActivePlayers gameStarted={gameStarted || gameEnded} users={users} />}
+    {!gameEnded && <ActivePlayers code={code} gameStarted={gameStarted || gameEnded} users={users} />}
     {renderGameState()}
   </Container>
 }

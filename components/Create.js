@@ -4,7 +4,6 @@ import { hri } from 'human-readable-ids';
 
 import { Button, StyledInput, FlexColumn, FlexContainer } from './StyledComponents'
 import { socket } from '../constants/websocket'
-import theme from '../constants/theme'
 
 const FormContainer = styled.div`
   padding: 40px;
@@ -14,19 +13,12 @@ const FormContainer = styled.div`
   text-align: center;
 `
 
-const GameCode = styled.span`
-  color: ${theme.colors.red};
-  font-weight: bold;
-  font-size: 1.5em;
-`
-
 const CheckBoxContainer = styled.div`
   margin: 0 20px 20px 0;
 `
 
 const Create = ({ cancel, setGameData, setGamePlaying }) => {
   const [name, setName] = useState('');
-  const [code, setCode] = useState('');
   const [rounds, setRounds] = useState("5");
   const [scoringType, setScoringType] = useState("cross");
   const [categories, setCategories] = useState({
@@ -50,11 +42,10 @@ const Create = ({ cancel, setGameData, setGamePlaying }) => {
 
   const options = ["5", "7", "10"]
   const gameData = {
-    name, code, isAdmin: true
+    name, isAdmin: true
   }
 
-  const handleCreateGame = (event) => {
-    event.preventDefault()
+  const handleCreateGame = (code) => {
     let cats = [];
     categoriesArray.forEach(cat => {
       if (categories[cat]) cats.push(cat);
@@ -67,6 +58,7 @@ const Create = ({ cancel, setGameData, setGamePlaying }) => {
         })
         alert(error);
       } else {
+        gameData.code = code;
         gameData.users = users;
         gameData.maxRounds = Number(rounds);
         gameData.categories = cats;
@@ -81,7 +73,7 @@ const Create = ({ cancel, setGameData, setGamePlaying }) => {
   return (
     <FormContainer>
       <form>
-        {!code ? <FlexColumn>
+        <FlexColumn>
           <p>
             <label htmlFor="name">Your Name:</label>
             <StyledInput maxLength="15" name="name" type="text" onChange={(event) => setName(event.target.value)} />
@@ -115,24 +107,15 @@ const Create = ({ cancel, setGameData, setGamePlaying }) => {
 
           </FlexContainer>
           <Button disabled={disabled} fontSize="25px" padding="15px" minWidth="220px" onClick={(event) => {
+            gtag('event', 'create_room', {
+              categories: categoriesArray.join(','),
+              rounds: rounds
+            });
             event.preventDefault()
-            setCode(hri.random())
-          }}>Generate Game Code</Button>
+            let code = hri.random();
+            handleCreateGame(code);
+          }}>Create Room</Button>
         </FlexColumn>
-          : <div style={{ padding: "80px 20px 20px 20px" }}><p>
-            Your Game Code is:
-            <GameCode>{` `}{code}</GameCode>.
-            Send it to your friends to start the game!
-          </p>
-            <Button fontSize="25px" padding="15px" minWidth="220px" onClick={(event) => {
-              event.preventDefault()
-              gtag('event', 'create_room', {
-                categories: categoriesArray.join(','),
-                rounds: rounds
-              });
-              handleCreateGame(event)
-            }}>Create Room & Enter
-            </Button></div>}
         <Button fontSize="25px" padding="15px" minWidth="220px" onClick={() => cancel()}>Cancel</Button>
       </form>
     </FormContainer>
