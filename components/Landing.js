@@ -87,7 +87,8 @@ const Landing = () => {
                 }}>Create New Game</Button>
               </ButtonContainer>
             </FlexColumn>
-              <Footer /></>}
+              {/* <Footer /> */}
+            </>}
           {showJoinForm && <Join cancel={toggleJoinForm} setGamePlaying={setGamePlaying} setGameData={setGameData} />}
           {showCreateForm && <Create setGamePlaying={setGamePlaying} setGameData={setGameData} cancel={toggleCreateForm} />}
         </>}
