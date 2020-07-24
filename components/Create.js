@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { hri } from 'human-readable-ids';
 
@@ -37,6 +37,21 @@ const Create = ({ cancel, setGameData, setGamePlaying }) => {
     Musicians: false,
     Instruments: false
   })
+
+  // Monzo easter egg
+  useEffect(() => {
+    if (name === "Monzo") {
+      setCategories(Object.assign({}, categories, {
+        "Office Dog Breeds": false,
+        "Meeting Rooms": false,
+        "Badge Types": false,
+        "Activity Types": false,
+        "Engineers": false,
+        "Data Scientists": false
+      }))
+    }
+
+  }, [name])
 
   const categoriesArray = Object.keys(categories);
 
