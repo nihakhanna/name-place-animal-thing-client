@@ -6,7 +6,7 @@ import Join from './Join';
 import Create from './Create';
 import Play from './Game/Play';
 import Instructions from './Instructions'
-import Footer from './Footer'
+// import Footer from './Footer'
 
 import { Button, FlexColumn, SoundButton, SoundButtonContainer } from './StyledComponents'
 
@@ -44,6 +44,19 @@ const ButtonContainer = styled.div`
 
 const TopButtonContainer = styled.div`
   margin-bottom: 20px;
+`
+
+
+const Footer = styled.div`
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  padding: 5px;
+  margin-top: 20px;
+  background-color: white;
+  color: black;
+  text-align: center;
+  border-top: 1px solid gray;
 `
 
 const Landing = () => {
@@ -92,6 +105,14 @@ const Landing = () => {
           {showJoinForm && <Join cancel={toggleJoinForm} setGamePlaying={setGamePlaying} setGameData={setGameData} />}
           {showCreateForm && <Create setGamePlaying={setGamePlaying} setGameData={setGameData} cancel={toggleCreateForm} />}
         </>}
+      <Footer>🏠🌴
+        <a onClick={(e) => {
+          gtag('event', 'go_to_sustaynably', {
+          });
+        }} style={{ paddingRight: '10px', paddingLeft: '10px', textDecoration: 'none', color: 'black' }} href="https://sustaynably.com">
+          Sustaynably.com | Find the best eco resorts and nature inspired experiences</a>
+        🌴🏠
+      </Footer>
     </Container>
 
   )

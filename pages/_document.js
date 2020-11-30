@@ -68,6 +68,12 @@ export default class MyDocument extends Document {
           <meta property="twitter:image" content="https://www.dropbox.com/s/creagk6nws7f13d/banner.png?raw=1" />
         </Head>
         <body>
+          <style jsx>{`
+          body {
+            padding: 0px;
+            margin: 0px;
+          }
+        `}</style>
           <Main />
           <NextScript />
         </body>
