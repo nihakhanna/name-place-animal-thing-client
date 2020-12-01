@@ -57,6 +57,12 @@ const Footer = styled.div`
   color: black;
   text-align: center;
   border-top: 1px solid gray;
+  max-height: 60px;
+`
+
+const ClearDiv = styled.div`
+  height: 60px;
+  margin-top: 10px;
 `
 
 const Landing = () => {
@@ -105,6 +111,7 @@ const Landing = () => {
           {showJoinForm && <Join cancel={toggleJoinForm} setGamePlaying={setGamePlaying} setGameData={setGameData} />}
           {showCreateForm && <Create setGamePlaying={setGamePlaying} setGameData={setGameData} cancel={toggleCreateForm} />}
         </>}
+      {/* <ClearDiv></ClearDiv>
       <Footer>🏠🌴
         <a onClick={(e) => {
           gtag('event', 'go_to_sustaynably', {
@@ -112,7 +119,7 @@ const Landing = () => {
         }} style={{ paddingRight: '10px', paddingLeft: '10px', textDecoration: 'none', color: 'black' }} href="https://sustaynably.com">
           Sustaynably.com | Find the best eco resorts and nature inspired experiences</a>
         🌴🏠
-      </Footer>
+      </Footer> */}
     </Container>
 
   )
