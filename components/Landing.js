@@ -16,7 +16,7 @@ const Container = styled.div`
   padding-top: 50px;
   flex-direction: column;
   font-family: ${theme.font};
-  min-height: calc(100vh - 110px);
+  min-height: 80vh;
 `
 
 const Header = styled.div`
@@ -53,6 +53,7 @@ const Footer = styled.div`
   padding: 5px;
   background-color: white;
   color: black;
+  margin-top: 10px;
   text-align: center;
   border-top: 1px solid gray;
   max-height: 60px;
