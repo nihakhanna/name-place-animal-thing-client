@@ -51,18 +51,12 @@ const TopButtonContainer = styled.div`
 const Footer = styled.div`
   width: 100%;
   padding: 5px;
-  margin-top: 20px;
   background-color: white;
   color: black;
   text-align: center;
   border-top: 1px solid gray;
   max-height: 60px;
   font-family: ${theme.font}
-`
-
-const ClearDiv = styled.div`
-  height: 60px;
-  margin-top: 10px;
 `
 
 const Landing = () => {
