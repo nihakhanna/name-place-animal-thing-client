@@ -15,7 +15,8 @@ const Container = styled.div`
   display: flex;
   padding-top: 50px;
   flex-direction: column;
-  font-family: ${theme.font}
+  font-family: ${theme.font};
+  min-height: calc(100vh - 110px);
 `
 
 const Header = styled.div`
@@ -48,8 +49,6 @@ const TopButtonContainer = styled.div`
 
 
 const Footer = styled.div`
-  position: fixed;
-  bottom: 0;
   width: 100%;
   padding: 5px;
   margin-top: 20px;
@@ -58,6 +57,7 @@ const Footer = styled.div`
   text-align: center;
   border-top: 1px solid gray;
   max-height: 60px;
+  font-family: ${theme.font}
 `
 
 const ClearDiv = styled.div`
@@ -74,54 +74,55 @@ const Landing = () => {
   const [soundOn, toggleSound] = useState(true);
 
   return (
-    <Container>
-      <SoundButtonContainer>
-        <SoundButton onClick={() => toggleSound(!soundOn)}>
-          <img alt="sound icon " height="22px" width="22px" style={{ margin: '0 auto' }} src={soundOn ? '/assets/audio.svg' : '/assets/audioOff.svg'} />
-        </SoundButton>
-      </SoundButtonContainer>
-      {isGamePlaying ?
-        <Play soundOn={soundOn} setGamePlaying={setGamePlaying} gameData={gameData} /> : showInstructions ? <Instructions cancel={toggleInstructions} /> : <>
-          {!(showJoinForm || showCreateForm) &&
-            <><FlexColumn>
-              <Header>
-                Name, Place, Animal, Thing
+    <>
+      <Container>
+        <SoundButtonContainer>
+          <SoundButton onClick={() => toggleSound(!soundOn)}>
+            <img alt="sound icon " height="22px" width="22px" style={{ margin: '0 auto' }} src={soundOn ? '/assets/audio.svg' : '/assets/audioOff.svg'} />
+          </SoundButton>
+        </SoundButtonContainer>
+        {isGamePlaying ?
+          <Play soundOn={soundOn} setGamePlaying={setGamePlaying} gameData={gameData} /> : showInstructions ? <Instructions cancel={toggleInstructions} /> : <>
+            {!(showJoinForm || showCreateForm) &&
+              <><FlexColumn>
+                <Header>
+                  Name, Place, Animal, Thing
               </Header>
-              <TopButtonContainer>
-                <Button fontSize="25px" padding="15px" minWidth="220px" onClick={() => toggleInstructions(true)}>How To Play</Button>
-              </TopButtonContainer>
-              <ButtonContainer>
-                <Button fontSize="25px" padding="15px" minWidth="220px" onClick={(event) => {
-                  gtag('event', 'view_form_join');
-                  event.preventDefault()
-                  toggleJoinForm(true)
-                  toggleCreateForm(false)
-                }}
-                >Join Existing Game</Button>
-                <Button fontSize="25px" padding="15px" minWidth="220px" onClick={(event) => {
-                  gtag('event', 'view_form_create');
-                  event.preventDefault()
-                  toggleJoinForm(false)
-                  toggleCreateForm(true)
-                }}>Create New Game</Button>
-              </ButtonContainer>
-            </FlexColumn>
-              {/* <Footer /> */}
-            </>}
-          {showJoinForm && <Join cancel={toggleJoinForm} setGamePlaying={setGamePlaying} setGameData={setGameData} />}
-          {showCreateForm && <Create setGamePlaying={setGamePlaying} setGameData={setGameData} cancel={toggleCreateForm} />}
-        </>}
-      {/* <ClearDiv></ClearDiv>
+                <TopButtonContainer>
+                  <Button fontSize="25px" padding="15px" minWidth="220px" onClick={() => toggleInstructions(true)}>How To Play</Button>
+                </TopButtonContainer>
+                <ButtonContainer>
+                  <Button fontSize="25px" padding="15px" minWidth="220px" onClick={(event) => {
+                    gtag('event', 'view_form_join');
+                    event.preventDefault()
+                    toggleJoinForm(true)
+                    toggleCreateForm(false)
+                  }}
+                  >Join Existing Game</Button>
+                  <Button fontSize="25px" padding="15px" minWidth="220px" onClick={(event) => {
+                    gtag('event', 'view_form_create');
+                    event.preventDefault()
+                    toggleJoinForm(false)
+                    toggleCreateForm(true)
+                  }}>Create New Game</Button>
+                </ButtonContainer>
+              </FlexColumn>
+                {/* <Footer /> */}
+              </>}
+            {showJoinForm && <Join cancel={toggleJoinForm} setGamePlaying={setGamePlaying} setGameData={setGameData} />}
+            {showCreateForm && <Create setGamePlaying={setGamePlaying} setGameData={setGameData} cancel={toggleCreateForm} />}
+          </>}
+        {/* <ClearDiv></ClearDiv> */}
+      </Container>
       <Footer>🏠🌴
-        <a onClick={(e) => {
+          <a onClick={(e) => {
           gtag('event', 'go_to_sustaynably', {
           });
         }} style={{ paddingRight: '10px', paddingLeft: '10px', textDecoration: 'none', color: 'black' }} href="https://sustaynably.com">
           Sustaynably.com | Find the best eco resorts and nature inspired experiences</a>
         🌴🏠
-      </Footer> */}
-    </Container>
-
+        </Footer>
+    </>
   )
 }
 
