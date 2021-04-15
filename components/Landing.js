@@ -109,14 +109,14 @@ const Landing = () => {
           </>}
         {/* <ClearDiv></ClearDiv> */}
       </Container>
-      <Footer>🏠🌴
+      {/* <Footer>🏠🌴
           <a onClick={(e) => {
           gtag('event', 'go_to_sustaynably', {
           });
         }} style={{ paddingRight: '10px', paddingLeft: '10px', textDecoration: 'none', color: 'black' }} href="https://sustaynably.com">
           Sustaynably.com | Find the best eco resorts and nature inspired experiences</a>
         🌴🏠
-        </Footer>
+        </Footer> */}
     </>
   )
 }
