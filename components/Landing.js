@@ -57,7 +57,8 @@ const Footer = styled.div`
   text-align: center;
   border-top: 1px solid gray;
   max-height: 60px;
-  font-family: ${theme.font}
+  font-family: ${theme.font};
+  font-size: 25px;
 `
 
 const Landing = () => {
@@ -109,14 +110,14 @@ const Landing = () => {
           </>}
         {/* <ClearDiv></ClearDiv> */}
       </Container>
-      {/* <Footer>🏠🌴
+      {!isGamePlaying && <Footer>💰💵
           <a onClick={(e) => {
-          gtag('event', 'go_to_sustaynably', {
+          gtag('event', 'go_to_upthebucks', {
           });
-        }} style={{ paddingRight: '10px', paddingLeft: '10px', textDecoration: 'none', color: 'black' }} href="https://sustaynably.com">
-          Sustaynably.com | Find the best eco resorts and nature inspired experiences</a>
-        🌴🏠
-        </Footer> */}
+        }} style={{ paddingRight: '10px', paddingLeft: '10px', textDecoration: 'none', color: 'black' }} href="https://www.upthebucks.com/alternative-investments-other-than-the-stock-market/">
+          UpTheBucks.com | How to invest in Wine, Old Cars, NFTs and alternative things besides the stock market!</a>
+        💵💰
+        </Footer>}
     </>
   )
 }
