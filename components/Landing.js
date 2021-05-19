@@ -114,8 +114,8 @@ const Landing = () => {
           <a onClick={(e) => {
           gtag('event', 'go_to_upthebucks', {
           });
-        }} style={{ paddingRight: '10px', paddingLeft: '10px', textDecoration: 'none', color: 'black' }} href="https://www.upthebucks.com/alternative-investments-other-than-the-stock-market/">
-          UpTheBucks.com | How to invest in Wine, Old Cars, NFTs and alternative things besides the stock market!</a>
+        }} style={{ paddingRight: '10px', paddingLeft: '10px', textDecoration: 'none', color: 'black' }} target="_blank" href="https://www.upthebucks.com/side-hustles-to-try-to-make-an-extra-income/">
+          UpTheBucks.com | Hight Paying Online Side Hustles to Make an Extra $500 Per Month in 2021</a>
         💵💰
         </Footer>}
     </>
