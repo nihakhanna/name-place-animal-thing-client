@@ -57,7 +57,7 @@ const Footer = styled.div`
   text-align: center;
   border-top: 1px solid gray;
   max-height: 60px;
-  font-family: ${theme.font};
+  font-family: Courier New;
   font-size: 25px;
 `
 
@@ -110,14 +110,13 @@ const Landing = () => {
           </>}
         {/* <ClearDiv></ClearDiv> */}
       </Container>
-      {!isGamePlaying && <Footer>💰💵
-          <a onClick={(e) => {
+      {!isGamePlaying && <Footer>
+        <a onClick={(e) => {
           gtag('event', 'go_to_upthebucks', {
           });
-        }} style={{ paddingRight: '10px', paddingLeft: '10px', textDecoration: 'none', color: 'black' }} target="_blank" href="https://www.upthebucks.com/side-hustles-to-try-to-make-an-extra-income/">
-          UpTheBucks.com | Hight Paying Online Side Hustles to Make an Extra $500 Per Month in 2021</a>
-        💵💰
-        </Footer>}
+        }} style={{ paddingRight: '10px', paddingLeft: '10px', textDecoration: 'none', color: 'black' }} target="_blank" href="https://www.upthebucks.com/alternative-investments-other-than-the-stock-market/">
+          💵📈 <b>UpTheBucks.com</b> | Cars, NFTs, artwork and other things to invest in other than the stock market 💵📈</a>
+      </Footer>}
     </>
   )
 }
