@@ -110,13 +110,13 @@ const Landing = () => {
           </>}
         {/* <ClearDiv></ClearDiv> */}
       </Container>
-      {!isGamePlaying && <Footer>
+      {/* {!isGamePlaying && <Footer>
         <a onClick={(e) => {
           gtag('event', 'go_to_upthebucks', {
           });
         }} style={{ paddingRight: '10px', paddingLeft: '10px', textDecoration: 'none', color: 'black' }} target="_blank" href="https://www.upthebucks.com/alternative-investments-other-than-the-stock-market/">
           💵📈 <b>UpTheBucks.com</b> | Cars, NFTs, artwork and other things to invest in other than the stock market 💵📈</a>
-      </Footer>}
+      </Footer>} */}
     </>
   )
 }
